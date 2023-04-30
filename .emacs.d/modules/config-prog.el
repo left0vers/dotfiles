@@ -5,7 +5,7 @@
 ;;; Code:
 
 (require 'general)
-(require 'doom-themes)
+;; (require 'doom-themes)
 ;; (require 'hydra)
 
 
@@ -116,14 +116,14 @@
   (general-def 'normal
     "SPC t" '(:ignore t :which-key "[T]reemacs")
     "SPC t t" 'treemacs-select-window
-    "SPC t q" 'treemacs-narrow-to-current-file)
+    "SPC t q" 'treemacs-narrow-to-current-file))
 
-  (with-eval-after-load 'treemacs
-    (doom-themes-treemacs-config))
+  ;; (with-eval-after-load 'treemacs
+  ;;   (doom-themes-treemacs-config))
 
-  (setq doom-themes-treemacs-theme "doom-colors"
-        treemacs-project-follow-mode t
-        treemacs-indent-guide-mode t))
+  ;; (setq doom-themes-treemacs-theme "doom-colors"
+  ;;       treemacs-project-follow-mode t
+  ;;       treemacs-indent-guide-mode t))
 
 
 (use-package yaml-mode
