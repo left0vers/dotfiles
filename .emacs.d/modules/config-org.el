@@ -35,12 +35,6 @@
 (add-hook 'org-mode-hook #'org-modern-mode)
 (add-hook 'org-mode-hook #'my-org-hooks)
 
-(setq org-modern-todo-faces
-      '(("TODO"        :background "PaleGreen3"  :foreground "black" :weight semibold)
-        ("MEETING"     :background "DarkOrchid2" :foreground "white" :weight semibold)
-        ("CANCELLED"   :background "tomato3"     :foreground "white" :weight semibold)
-        ("IN-PROGRESS" :background "tan3"        :foreground "white" :weight semibold)))
-
 
 (require 'org-agenda)
 (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
