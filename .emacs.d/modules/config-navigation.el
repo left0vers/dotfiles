@@ -49,11 +49,10 @@
 ;;
 (use-package expand-region
   :config
-  (if become-evil-p
-      (general-def '(visual)
-        "+" 'er/expand-region
-        "-" 'er/contract-region)
-    (global-set-key (kbd "C-=") 'er/expand-region)))
+  (pcase modal-mode
+    (:evil (general-def '(visual)
+             "+" 'er/expand-region
+             "-" 'er/contract-region))))
 
 (provide 'config-navigation)
 ;;; config-navigation.el ends here

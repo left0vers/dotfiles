@@ -47,8 +47,10 @@
 
    (add-hook 'rust-mode-hook #'config/rust)
 
-  (evil-set-initial-state 'rustic-popup-mode       'emacs)
-  (evil-set-initial-state 'rustic-compilation-mode 'emacs)
+   (pcase modal-mode
+     (:evil (progn
+              (evil-set-initial-state 'rustic-popup-mode       'emacs)
+              (evil-set-initial-state 'rustic-compilation-mode 'emacs))))
 
   (unless (executable-find "cargo-outdated")
     (message "WARNING: rust package `cargo-outdated' was not found.")))

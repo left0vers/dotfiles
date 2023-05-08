@@ -25,17 +25,18 @@
 ;; passkey.
 (setq epg-pinentry-mode 'loopback)
 
-(defvar become-evil-p t
-  "Enable Evil mode keybindings if set to a non-nil value.
+(defvar modal-mode :god-mode
+  "The modal mode that is active.
 
-Setting this variable to a non-nil value will have no effect if
-the Evil configuration file is not enabled.")
+Possible values are `:evil', `:god-mode', `:meow'.")
 
 (require 'config-package)
 (require 'config-basic)
 (require 'config-bépo)
-(require 'config-evil)
-;; (require 'config-meow)
+(pcase modal-mode
+  (:god-mode (require 'config-god-mode))
+  (:evil (require 'config-evil))
+  (:meow (require 'config-meow)))
 (require 'config-appearance)
 (require 'config-ledger)
 (require 'config-org)

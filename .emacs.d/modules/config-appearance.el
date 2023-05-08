@@ -123,10 +123,10 @@
 (require 'default-text-scale)
 (add-hook 'after-init-hook 'default-text-scale-mode)
 
-(require 'general)
-(general-def '(normal visual motion emacs insert)
-  "C-+" 'default-text-scale-increase
-  "C--" 'default-text-scale-decrease)
+(pcase modal-mode
+  (:evil (general-def '(normal visual motion emacs insert)
+           "C-+" 'default-text-scale-increase
+           "C--" 'default-text-scale-decrease)))
 
 
 ;; Mouse & Smooth scrolling.

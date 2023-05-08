@@ -62,10 +62,14 @@
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
 
-  (general-def 'normal
-    "SPC b b" 'consult-buffer
-    "SPC b p" 'consult-project-buffer
-    "SPC /"   'consult-ripgrep))
+  (pcase modal-mode
+    (:evil (general-def 'normal
+             "SPC b b" 'consult-buffer
+             "SPC b p" 'consult-project-buffer
+             "SPC /"   'consult-ripgrep))
+    (:god-mode (progn
+                 (global-set-key (kbd "C-x C-b") 'consult-buffer)
+                 (global-set-key (kbd "C-x C-/") 'consult-ripgrep)))))
 
 
 ;;

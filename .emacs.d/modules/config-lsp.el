@@ -34,10 +34,11 @@
 
   (define-key lsp-mode-map (kbd "C-c .") 'lsp-execute-code-action)
   
-  (general-def 'normal
-    "SPC m l" '(:ignore t :which-key "LSP")
-    "SPC m l a" 'lsp-execute-code-action
-    "SPC m l r" 'lsp-rename))
+  (pcase modal-mode
+    (:evil (general-def 'normal
+             "SPC m l" '(:ignore t :which-key "LSP")
+             "SPC m l a" 'lsp-execute-code-action
+             "SPC m l r" 'lsp-rename))))
 
 (use-package lsp-ui
   :config
@@ -52,11 +53,13 @@
         lsp-ui-doc-show-with-cursor nil
         lsp-ui-doc-show-with-mouse nil)
 
-  (general-def 'normal
-    "g h" 'lsp-ui-doc-toggle
-    "g r" 'lsp-find-references
-    "g d" 'lsp-find-definition
-    "g t" 'lsp-find-type-definition)
+  (pcase modal-mode
+    (:evil (general-def 'normal
+             "g h" 'lsp-ui-doc-toggle
+             "g r" 'lsp-find-references
+             "g d" 'lsp-find-definition
+             "g t" 'lsp-find-type-definition)))
+  
   (define-key lsp-ui-mode-map (kbd "M-i") 'lsp-ui-imenu)
   
   (add-hook 'lsp-mode-hook 'lsp-ui-mode))

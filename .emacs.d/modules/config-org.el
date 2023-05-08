@@ -14,16 +14,17 @@
 
 (setq org-hide-emphasis-markers t)
 
-(general-def '(normal insert visual) org-mode-map
-  "M-n" 'org-metaright
-  "M-N" 'org-shiftmetaright
-  "M-t" 'org-metaleft
-  "M-T" 'org-shiftmetaleft
-  "M-s" 'org-metadown
-  "M-S" 'org-shiftmetadown
-  "M-r" 'org-metaup
-  "M-R" 'org-shiftmetaup
-  "<tab>" 'org-cycle)
+(pcase modal-mode
+  (:evil (general-def '(normal insert visual) org-mode-map
+           "M-n" 'org-metaright
+           "M-N" 'org-shiftmetaright
+           "M-t" 'org-metaleft
+           "M-T" 'org-shiftmetaleft
+           "M-s" 'org-metadown
+           "M-S" 'org-shiftmetadown
+           "M-r" 'org-metaup
+           "M-R" 'org-shiftmetaup
+           "<tab>" 'org-cycle)))
 
 (defun my-org-hooks ()
   (toggle-truncate-lines)

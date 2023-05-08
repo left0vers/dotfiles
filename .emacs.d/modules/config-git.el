@@ -10,10 +10,11 @@
 (use-package magit
   :config
   (setq magit-diff-refine-hunk 'all)
-  (general-def 'normal
-    "SPC g" '(:ignore t :which-key "[M]agit")
-    "SPC g s" 'magit-status
-    "SPC g b" 'magit-blame-echo))
+  (pcase modal-mode
+    (:evil (general-def 'normal
+             "SPC g" '(:ignore t :which-key "[M]agit")
+             "SPC g s" 'magit-status
+             "SPC g b" 'magit-blame-echo))))
 
 ;;
 ;; `diff-hl': show in the gutter which parts of a file have been modified.

@@ -12,9 +12,11 @@
 (show-paren-mode    t)
 (electric-pair-mode t)
 
-(general-def 'normal
-  "g r" 'xref-find-references
-  "g d" 'xref-find-definitions)
+(pcase modal-mode
+  (:evil (general-def 'normal
+           "g r" 'xref-find-references
+           "g d" 'xref-find-definitions)))
+
 
 ;; (require 'flyspell)
 ;; (setenv "LANG" "en_US")
@@ -33,12 +35,14 @@
   ("n" flymake-goto-next-error "next")
   ("p" flymake-goto-prev-error "prev"))
 
-(general-def 'normal
-  "M-d"     'flymake/navigate-diagnostics/body 
-  "SPC d n" 'flymake/navigate-diagnostics/flymake-goto-next-error
-  "SPC d p" 'flymake/navigate-diagnostics/flymake-goto-prev-error
-  "SPC d s" 'flymake-start
-  "SPC d l" 'flymake-show-project-diagnostics)
+(pcase modal-mode
+  (:evil (general-def 'normal
+           "M-d"      'flymake/navigate-diagnostics/body 
+           "SPC d n"  'flymake/navigate-diagnostics/flymake-goto-next-error
+           "SPC d p"  'flymake/navigate-diagnostics/flymake-goto-prev-error
+           "SPC d s"  'flymake-start
+           "SPC d l"  'flymake-show-project-diagnostics)))
+
 
 (setq flymake-no-changes-timeout nil
       flymake-start-on-save-buffer nil
@@ -113,10 +117,11 @@
 ;;
 (use-package treemacs
   :config
-  (general-def 'normal
-    "SPC t" '(:ignore t :which-key "[T]reemacs")
-    "SPC t t" 'treemacs-select-window
-    "SPC t q" 'treemacs-narrow-to-current-file))
+  (pcase modal-mode
+    (:evil (general-def 'normal
+             "SPC t" '(:ignore t :which-key "[T]reemacs")
+             "SPC t t" 'treemacs-select-window
+             "SPC t q" 'treemacs-narrow-to-current-file))))
 
   ;; (with-eval-after-load 'treemacs
   ;;   (doom-themes-treemacs-config))
