@@ -31,7 +31,7 @@
   (setq
    rustic-compile-directory-method #'rustic-buffer-workspace
    rustic-default-clippy-arguments "--tests --all-targets -- -D warnings"
-   rustic-default-test-arguments "--all-targets"
+   rustic-default-test-arguments ""
    rustic-format-trigger 'on-save)
    ;; ///// eglot
    ;; (setq rustic-format-on-save-method #'eglot-format-buffer
