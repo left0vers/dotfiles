@@ -55,11 +55,8 @@
 ;; action was impossible, invert the color of the modeline.
 ;;
 ;; https://www.emacswiki.org/emacs/AlarmBell#h5o-3
-(defun flash-mode-line ()
-  (invert-face 'mode-line)
-  (run-with-timer 0.1 nil #'invert-face 'mode-line))
 (setq visible-bell nil
-      ring-bell-function 'flash-mode-line)
+      ring-bell-function 'ignore)
 
 ;; (use-package doom-themes
 ;;   :config
