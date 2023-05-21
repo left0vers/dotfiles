@@ -153,18 +153,18 @@
 (add-hook 'after-init-hook 'global-hl-todo-mode)
 
 
-;; ;;
-;; ;; Dashboard
-;; ;;
-;; (use-package dashboard
-;;   :init
-;;   :config
-;;   (setq dashboard-item-shortcuts '((recents . "f")
-;;                                    (bookmarks . "m")
-;;                                    (projects . "p")
-;;                                    (agenda . "a")
-;;                                    (registers . "e")))
-;;   (dashboard-setup-startup-hook))
+;;
+;; Dashboard
+;;
+(use-package dashboard
+  :init
+  :config
+  (setq dashboard-item-shortcuts '((recents . "f")
+                                   (bookmarks . "m")
+                                   (projects . "p")
+                                   (agenda . "a")
+                                   (registers . "e")))
+  (dashboard-setup-startup-hook))
 
 
 (provide 'config-appearance)
