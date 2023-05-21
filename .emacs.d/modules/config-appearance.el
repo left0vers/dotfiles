@@ -81,17 +81,6 @@
 (add-hook 'doom-modeline-mode-hook 'minions-mode)
 
 
-(use-package all-the-icons)
-(when (or (display-graphic-p) (daemonp))
-  (progn
-    (require 'all-the-icons)
-    (setq all-the-icons-scale-factor 1.1)))
-
-(use-package all-the-icons-completion
-  :config
-  (all-the-icons-completion-mode))
-
-
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (add-hook 'yaml-mode-hook 'display-line-numbers-mode)
 (add-hook 'conf-mode-hook 'display-line-numbers-mode)
