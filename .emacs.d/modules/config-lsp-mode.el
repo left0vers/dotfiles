@@ -1,10 +1,8 @@
-;;; config-lsp.el --- Summary
+;;; config-lsp-mode.el --- Summary
 ;;;
 ;;; Commentary:
 ;;;
 ;;; Code:
-
-(require 'general)
 
 ;; /////////////////////////////////////////////////////////////////////////////
 ;;
@@ -15,8 +13,8 @@
   :init
   (setq lsp-keymap-prefix "C-c l")
   :config
-  (setq lsp-signature-auto-activate nil
-        lsp-completion-enable t
+  (setq lsp-completion-enable t
+        lsp-signature-auto-activate nil
         lsp-eldoc-enable-hover t
         lsp-completion-provider :none
         lsp-diagnostics-provider :flymake
@@ -42,7 +40,7 @@
 
 (use-package lsp-ui
   :config
-  (setq lsp-ui-sideline-enable t
+  (setq lsp-ui-sideline-enable nil
         lsp-ui-sideline-show-diagnostics nil
         lsp-ui-sideline-show-code-actions t
         lsp-ui-sideline-show-hover nil
@@ -71,23 +69,5 @@
     "SPC d l" 'consult-lsp-diagnostics))
 
 
-;; /////////////////////////////////////////////////////////////////////////////
-;;
-;; Eglot
-;;
-
-;; (use-package eglot
-;;   :ensure t
-;;   :config
-;;   (general-def 'normal eglot-mode-map
-;;     "SPC m l" '(:ignore t :which-key "Language Server")
-;;     "SPC m l r" 'eglot-rename
-;;     "SPC m l a" 'eglot-code-actions)
-
-;;   (general-def eglot-mode-map
-;;     "C-c ." 'eglot-code-actions)
-
-;;   (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
-
-(provide 'config-lsp)
-;;; config-lsp.el ends here
+(provide 'config-lsp-mode)
+;;; config-lsp-mode.el ends here

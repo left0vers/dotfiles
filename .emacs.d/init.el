@@ -30,6 +30,11 @@
 
 Possible values are `:evil', `:god-mode', `:meow'.")
 
+(defvar lsp-client :lsp-mode
+  "The LSP client implementation to use.
+
+Possible values are `:eglot' and `:lsp-mode'")
+
 (require 'config-package)
 (require 'config-basic)
 (require 'config-bépo)
@@ -50,7 +55,9 @@ Possible values are `:evil', `:god-mode', `:meow'.")
 (require 'config-shell)
 (require 'config-eldoc)
 (require 'config-prog)
-(require 'config-lsp)
+(pcase lsp-client
+  (:lsp-mode (require 'config-lsp-mode))
+  (:eglot (require 'config-eglot)))
 (require 'config-project)
 (require 'config-rust)
 (require 'config-common-lisp)

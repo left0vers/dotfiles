@@ -7,7 +7,8 @@
 
 (defun config/rust ()
   "Set the `fill-column' to a 100 characters."
-  (setq-local fill-column 100))
+  (setq-local fill-column 100)
+  (lsp-inlay-hints-mode 1))
 
 
 ;; Content to put in the `.dir-locals.el' file at the root of a Rust project
@@ -33,17 +34,21 @@
    rustic-default-clippy-arguments "--tests --all-targets -- -D warnings"
    rustic-default-test-arguments ""
    rustic-format-trigger 'on-save)
-   ;; ///// eglot
-   ;; (setq rustic-format-on-save-method #'eglot-format-buffer
-   ;;       rustic-lsp-client 'eglot)
-   ;; (add-hook 'rust-mode-hook 'eglot-ensure)
-
-   ;; ///// lsp-mode
-   (setq rustic-format-on-save-method #'lsp-format-buffer
-         lsp-rust-analyzer-server-display-inlay-hints t
-         lsp-rust-analyzer-inlay-hints-mode t
-         lsp-rust-analyzer-cargo-watch-command "clippy")
-   (add-hook 'rust-mode-hook #'lsp-deferred)
+  (pcase lsp-client
+    (:eglot (progn
+              (setq rustic-format-on-save-method #'eglot-format-buffer
+                    rustic-lsp-client 'eglot)
+              (add-hook 'rust-mode-hook 'eglot-ensure)))
+    (:lsp-mode (progn
+                 (setq rustic-format-on-save-method #'lsp-format-buffer
+                       lsp-inlay-hint-enable t
+                       lsp-rust-analyzer-server-display-inlay-hints t
+                       lsp-rust-analyzer-display-parameter-hints t
+                       lsp-rust-analyzer-display-chaining-hints t
+                       lsp-rust-analyzer-display-closure-return-type-hints t
+                       lsp-rust-analyzer-server-format-inlay-hints t
+                       lsp-rust-analyzer-cargo-watch-command "clippy")
+                 (add-hook 'rust-mode-hook #'lsp-deferred))))
 
    (add-hook 'rust-mode-hook #'config/rust)
 
