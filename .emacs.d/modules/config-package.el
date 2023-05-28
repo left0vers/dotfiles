@@ -38,13 +38,5 @@
   :ensure t)
 
 
-(use-package auto-package-update
-  :ensure t
-  :init
-(setq auto-package-update-delete-old-versions t
-      auto-package-update-hide-results t)
-(defalias 'upgrade-packages #'auto-package-update-now))
-
-
 (provide 'config-package)
 ;;; config-package.el ends here
