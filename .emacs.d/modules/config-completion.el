@@ -147,6 +147,11 @@
 
 (use-package kind-icon
   :config
+  (when (eq system-type 'gnu/linux)
+    ;; Taken from https://github.com/jdtsmith/kind-icon/issues/22
+    (setq kind-icon-default-style
+          '(:padding -1 :stroke 0 :margin 0 :radius 0 :height 0.5 :scale 1)))
+
   (setq kind-icon-default-face 'corfu-default
         kind-icon-use-icons t
         kind-icon-blend-background nil
