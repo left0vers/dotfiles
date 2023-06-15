@@ -25,7 +25,7 @@
 ;; passkey.
 (setq epg-pinentry-mode 'loopback)
 
-(defvar modal-mode :god-mode
+(defvar modal-mode :evil
   "The modal mode that is active.
 
 Possible values are `:evil', `:god-mode', `:meow'.")
