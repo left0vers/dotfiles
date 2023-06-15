@@ -157,13 +157,15 @@
 ;; Dashboard
 ;;
 (use-package dashboard
-  :init
   :config
   (setq dashboard-item-shortcuts '((recents . "f")
                                    (bookmarks . "m")
-                                   (projects . "p")
+                                   (projects . "P")
                                    (agenda . "a")
                                    (registers . "e")))
+  (general-def 'dashboard-mode-map
+    "n" 'next-line
+    "p" 'previous-line)
   (dashboard-setup-startup-hook))
 
 
