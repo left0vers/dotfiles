@@ -24,6 +24,7 @@
 ;; TODO Investigate why I cannot have gpg ask directly from within Emacs for the
 ;; passkey.
 (setq epg-pinentry-mode 'loopback)
+(setq custom-file "~/.emacs.d/custom.el")
 
 (defvar modal-mode :evil
   "The modal mode that is active.
@@ -61,20 +62,5 @@ Possible values are `:eglot' and `:lsp-mode'")
 (require 'config-rust)
 (require 'config-common-lisp)
 (require 'config-javascript)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(wgrep emacsql-sqlite yasnippet yasnippet-snippets eglot sqlite3 flycheck-popup-tip doom-modeline evil-collection evil-commentary forge general magit projectile olivetti yaml-mode which-key vertico use-package undo-tree treemacs tree-sitter-langs sly rustic pcmpl-args page-break-lines org-modern orderless minions marginalia lsp-ui ledger-mode kind-icon iscroll hl-todo gcmh expand-region exec-path-from-shell evil-surround evil-nerd-commenter embark-consult doom-themes diminish diff-hl default-text-scale ctrlf corfu consult-lsp cape auto-package-update all-the-icons-completion)))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
 ;;; init.el ends here
