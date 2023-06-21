@@ -66,7 +66,7 @@
 (use-package doom-modeline
   :init
   (setq doom-modeline-minor-modes t
-        doom-modeline-buffer-file-name-style 'relative-to-project
+        doom-modeline-buffer-file-name-style 'relative-from-project
         doom-modeline-modal-icon nil)
   (unless after-init-time
     (setq-default mode-line-format nil))
