@@ -66,6 +66,7 @@
     (:evil (general-def 'normal
              "SPC b b" 'consult-buffer
              "SPC b p" 'consult-project-buffer
+             "SPC b K" 'kill-this-buffer
              "SPC /"   'consult-ripgrep))
     (:god-mode (progn
                  (global-set-key (kbd "C-x C-b") 'consult-buffer)
