@@ -29,7 +29,7 @@
   (setq default-frame-alist '((font . my/font))))
 
 
-;; Make the titlebar transparent & dark.
+;; Make the title bar transparent & dark.
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
@@ -51,9 +51,6 @@
 
 (load-theme 'modus-vivendi)
 
-;; Instead of showing a triangle in the middle of the screen to indicate that an
-;; action was impossible, invert the color of the modeline.
-;;
 ;; https://www.emacswiki.org/emacs/AlarmBell#h5o-3
 (setq visible-bell nil
       ring-bell-function 'ignore)
@@ -76,9 +73,9 @@
   (add-hook 'after-init-hook 'doom-modeline-mode))
 
 
-(use-package minions)
-(require 'minions)
-(add-hook 'doom-modeline-mode-hook 'minions-mode)
+(use-package minions
+  :ensure t
+  :hook (doom-modeline-mode . minions-mode))
 
 
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
@@ -133,16 +130,19 @@
 (if (fboundp 'pixel-scroll-precision-mode)
     (pixel-scroll-precision-mode t))
 
+;;
+;; Smooth scrolling over images.
+;;
+(use-package iscroll
+  :ensure t
+  :hook (image-mode . iscroll-mode))
 
-(use-package iscroll)
-(require 'iscroll)
-(add-hook 'image-mode-hook 'iscroll-mode)
-
-
+;;
 ;; Display page breaks as tidy horizontal lines
-(use-package page-break-lines)
-(require 'page-break-lines)
-(add-hook 'after-init-hook 'global-page-break-lines-mode)
+;;
+(use-package page-break-lines
+  :ensure t
+  :hook (after-init . global-page-break-lines-mode))
 
 
 ;;
