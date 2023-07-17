@@ -60,6 +60,7 @@ Possible values are `:eglot' and `:lsp-mode'")
   (:eglot (require 'config-eglot)))
 (require 'config-project)
 (require 'config-rust)
+(require 'config-python)
 (require 'config-common-lisp)
 (require 'config-javascript)
 
