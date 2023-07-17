@@ -47,6 +47,7 @@
   "SPC p f" 'project-find-file
   "SPC p S" 'my/save-modified-buffers-in-current-project
   "SPC p d" 'project-find-dir
+  "SPC p g" 'project-find-regexp
   "SPC p k" 'project-kill-buffers
   "SPC p e" 'project-eshell)
 
