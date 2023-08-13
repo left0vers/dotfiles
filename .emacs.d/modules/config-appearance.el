@@ -22,7 +22,7 @@
 (defvar my/font (font-spec
                  :name "JetBrains Mono NL"
                  :weight 'light
-                 :size 16))
+                 :size 16.5))
 (set-frame-font my/font my/keep-size my/apply-to-all-frames)
 
 (when (daemonp)
