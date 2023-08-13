@@ -97,7 +97,7 @@
     },
     {
         "key": "alt+x",
-        "command": "workbench.action.showCommands",
+        "command": "workbench.action.showCommands"
     },
     {
         "key": "ctrl+s",
@@ -106,17 +106,17 @@
     {
         "key": "alt+b",
         "command": "cursorWordLeft",
-        "when": "inputFocus && vim.mode == 'Insert'",
+        "when": "inputFocus && vim.mode == 'Insert'"
     },
     {
         "key": "alt+f",
         "command": "cursorWordRight",
-        "when": "inputFocus && vim.mode == 'Insert'",
+        "when": "inputFocus && vim.mode == 'Insert'"
     },
     {
         "key": "alt+d",
         "command": "deleteWordRight",
-        "when": "inputFocus && vim.mode == 'Insert'",
+        "when": "inputFocus && vim.mode == 'Insert'"
     },
     {
         "key": "ctrl+c g T",
@@ -249,5 +249,5 @@
     {
         "key": "ctrl+PageUp",
         "command": "workbench.action.previousEditorInGroup"
-    },
+    }
 ]
