@@ -1,0 +1,253 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "ctrl+g",
+        "command": "-workbench.action.gotoLine"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "workbench.action.terminal.hideFind",
+        "when": "terminalFindVisible && terminalFocus && terminalHasBeenCreated || terminalFindVisible && terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "cancelLinkedEditingInput",
+        "when": "LinkedEditingInputVisible && editorTextFocus"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "cancelRenameInput",
+        "when": "editorFocus && renameInputVisible"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "runCommands",
+        "when": "editorHasSelection && textInputFocus",
+        "args": {
+            "commands": [
+                "cancelSelection",
+                "extension.vim_escape"
+            ]
+        }
+    },
+    {
+        "key": "ctrl+g",
+        "command": "closeBreakpointWidget",
+        "when": "breakpointWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "closeDirtyDiff",
+        "when": "dirtyDiffVisible"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "closeFindWidget",
+        "when": "editorFocus && findWidgetVisible && !isComposing"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "closeMarkersNavigation",
+        "when": "editorFocus && markersNavigationVisible"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "closeParameterHints",
+        "when": "editorFocus && parameterHintsVisible"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "closeReferenceSearch",
+        "when": "inReferenceSearchEditor && !config.editor.stablePeek"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "closeReferenceSearch",
+        "when": "referenceSearchVisible && !config.editor.stablePeek"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "hideCodeActionWidget",
+        "when": "codeActionMenuVisible"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "hideSuggestWidget",
+        "when": "suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "leaveSnippet",
+        "when": "editorTextFocus && inSnippetMode"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "removeSecondaryCursors",
+        "when": "editorHasMultipleSelections && textInputFocus"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "workbench.action.closeQuickOpen",
+        "when": "inQuickOpen"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "workbench.action.hideComment",
+        "when": "commentEditorFocused"
+    },
+    {
+        "key": "alt+x",
+        "command": "workbench.action.showCommands",
+    },
+    {
+        "key": "ctrl+s",
+        "command": "workbench.action.files.save"
+    },
+    {
+        "key": "alt+b",
+        "command": "cursorWordLeft",
+        "when": "inputFocus && vim.mode == 'Insert'",
+    },
+    {
+        "key": "alt+f",
+        "command": "cursorWordRight",
+        "when": "inputFocus && vim.mode == 'Insert'",
+    },
+    {
+        "key": "alt+d",
+        "command": "deleteWordRight",
+        "when": "inputFocus && vim.mode == 'Insert'",
+    },
+    {
+        "key": "ctrl+c g T",
+        "command": "editor.action.peekTypeDefinition",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+c g r",
+        "command": "editor.action.referenceSearch.trigger",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+c g d",
+        "command": "editor.action.peekDefinition",
+        "when": "editorFocus"
+    },
+    {
+        "key": "alt+j",
+        "when": "editorFocus && !editorReadOnly",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "editor.action.insertLineAfter",
+                "editor.action.commentLine"
+            ]
+        }
+    },
+    {
+        "key": "ctrl+o",
+        "when": "editorFocus && canNavigateBack",
+        "command": "workbench.action.navigateBack"
+    },
+    {
+        "key": "ctrl+t",
+        "when": "editorFocus && canNavigateForward",
+        "command": "workbench.action.navigateForward"
+    },
+    {
+        "key": "ctrl+t",
+        "command": "-editor.action.transposeLetters",
+        "when": "textInputFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+c t",
+        "when": "editorFocus",
+        "command": "workbench.action.tasks.test"
+    },
+    {
+        "key": "ctrl+c l r",
+        "when": "editorTextFocus && editorHasRenameProvider",
+        "command": "editor.action.rename"
+    },
+    {
+        "key": "ctrl+c [KeyV]",
+        "command": "editor.action.quickFix",
+        "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly"
+    },
+    {
+        "key": "cmd+backspace",
+        "command": "-deleteAllLeft",
+        "when": "textInputFocus && !editorReadonly"
+    },
+    {
+        "key": "cmd+backspace",
+        "command": "deleteWordLeft",
+        "when": "textInputFocus && !editorReadonly"
+    },
+    {
+        "key": "cmd+q",
+        "command": "-workbench.action.quit"
+    },
+    {
+        "key": "cmd+q",
+        "command": "rewrap.rewrapComment"
+    },
+    {
+        "key": "n",
+        "command": "list.focusDown",
+        "when": "listFocus && !inputFocus"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "-list.focusDown",
+        "when": "listFocus && !inputFocus"
+    },
+    {
+        "key": "p",
+        "command": "list.focusUp",
+        "when": "listFocus && !inputFocus"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "-list.focusUp",
+        "when": "listFocus && !inputFocus"
+    },
+    {
+        "key": "r",
+        "command": "renameFile",
+        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "enter",
+        "command": "-renameFile",
+        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "shift+d",
+        "command": "moveFileToTrash",
+        "when": "explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "delete",
+        "command": "-moveFileToTrash",
+        "when": "explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "i",
+        "command": "explorer.newFile",
+        "when": "filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "shift+i",
+        "command": "explorer.newFolder",
+        "when": "filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "ctrl+PageDown",
+        "command": "workbench.action.nextEditorInGroup"
+    },
+    {
+        "key": "ctrl+PageUp",
+        "command": "workbench.action.previousEditorInGroup"
+    },
+]

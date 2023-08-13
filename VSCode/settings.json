@@ -1,0 +1,584 @@
+{
+    "telemetry.telemetryLevel": "off",
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "workbench.list.defaultFindMatchType": "contiguous",
+    "editor.fontSize": 14,
+    "editor.wordWrap": "on",
+    "terminal.integrated.fontSize": 15,
+    "terminal.integrated.defaultProfile.osx": "fish",
+    "window.zoomLevel": 1,
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.inlayHints.fontSize": 10,
+    "editor.formatOnSave": true,
+    "editor.renderLineHighlight": "all",
+    "editor.minimap.enabled": false,
+    "editor.cursorBlinking": "solid",
+    // -------------------------------------------------------------------------------------------
+    // Evil keybindings
+    //
+    "vim.useCtrlKeys": false,
+    "vim.handleKeys": {
+        "<C-v>": true,
+        "<C-d>": true,
+        "<C-u>": true,
+        "<C-w>": true
+    },
+    "vim.leader": "<space>",
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.camelCaseMotion.enable": true,
+    "vim.easymotion": true,
+    "vim.showmodename": false,
+    "vim.cursorStylePerMode.insert": "line",
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "t"
+            ],
+            "after": [
+                "h"
+            ]
+            // "commands": ["cursorLeft"],
+        },
+        {
+            "before": [
+                "s"
+            ],
+            "after": [
+                "g",
+                "j"
+            ]
+            // "commands": ["cursorDown"]
+        },
+        {
+            "before": [
+                "r"
+            ],
+            "after": [
+                "g",
+                "k"
+            ]
+            // "commands": ["cursorUp"]
+        },
+        {
+            "before": [
+                "n"
+            ],
+            "after": [
+                "l"
+            ]
+            // "commands": ["cursorRight"],
+        },
+        {
+            "before": [
+                "h"
+            ],
+            "after": [
+                "r"
+            ]
+        },
+        {
+            "before": [
+                "j"
+            ],
+            "after": [
+                "t"
+            ]
+        },
+        {
+            "before": [
+                "k"
+            ],
+            "after": [
+                "s"
+            ]
+        },
+        {
+            "before": [
+                "l"
+            ],
+            "after": [
+                "n"
+            ]
+        },
+        {
+            "before": [
+                "L"
+            ],
+            "after": [
+                "N"
+            ]
+        },
+        {
+            "before": [
+                "é"
+            ],
+            "after": [
+                "w"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "d",
+                "l"
+            ],
+            "commands": [
+                "workbench.panel.markers.view.focus"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "p",
+                "p"
+            ],
+            "commands": [
+                "projectManager.listProjectsNewWindow"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "p",
+                "P"
+            ],
+            "commands": [
+                "projectManager.listProjects"
+            ]
+        },
+        {
+            "before": [
+                "<C-w>",
+                "t"
+            ],
+            "after": [
+                "<C-w>",
+                "h"
+            ]
+        },
+        {
+            "before": [
+                "<C-w>",
+                "s"
+            ],
+            "after": [
+                "<C-w>",
+                "j"
+            ]
+        },
+        {
+            "before": [
+                "<C-w>",
+                "r"
+            ],
+            "after": [
+                "<C-w>",
+                "k"
+            ]
+        },
+        {
+            "before": [
+                "<C-w>",
+                "n"
+            ],
+            "after": [
+                "<C-w>",
+                "l"
+            ]
+        },
+        {
+            "before": [
+                "<C-w>",
+                "D"
+            ],
+            "commands": [
+                "workbench.action.closeEditorsInOtherGroups"
+            ]
+        },
+        {
+            "before": [
+                "g",
+                "c"
+            ],
+            "commands": [
+                "editor.action.commentLine"
+            ]
+        },
+        {
+            "before": [
+                "g",
+                "r"
+            ],
+            "commands": [
+                "editor.action.referenceSearch.trigger"
+            ]
+        },
+        {
+            "before": [
+                "g",
+                "T"
+            ],
+            "commands": [
+                "editor.action.peekTypeDefinition"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "a",
+                "t"
+            ],
+            "commands": [
+                "workbench.action.createTerminalEditor"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "a",
+                "e"
+            ],
+            "commands": [
+                "workbench.files.action.focusFilesExplorer"
+            ]
+        }
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "t"
+            ],
+            "after": [
+                "h"
+            ]
+            // "commands": ["cursorLeft"],
+        },
+        {
+            "before": [
+                "s"
+            ],
+            "after": [
+                "g",
+                "j"
+            ]
+            // "commands": ["cursorDown"]
+        },
+        {
+            "before": [
+                "r"
+            ],
+            "after": [
+                "g",
+                "k"
+            ]
+            // "commands": ["cursorUp"]
+        },
+        {
+            "before": [
+                "n"
+            ],
+            "after": [
+                "l"
+            ]
+            // "commands": ["cursorRight"],
+        },
+        {
+            "before": [
+                "h"
+            ],
+            "after": [
+                "r"
+            ]
+        },
+        {
+            "before": [
+                "j"
+            ],
+            "after": [
+                "t"
+            ]
+        },
+        {
+            "before": [
+                "k"
+            ],
+            "after": [
+                "s"
+            ]
+        },
+        {
+            "before": [
+                "l"
+            ],
+            "after": [
+                "n"
+            ]
+        },
+        {
+            "before": [
+                "L"
+            ],
+            "after": [
+                "N"
+            ]
+        },
+        {
+            "before": [
+                "é"
+            ],
+            "after": [
+                "w"
+            ]
+        }
+    ],
+    "vim.operatorPendingModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "t"
+            ],
+            "after": [
+                "h"
+            ]
+            // "commands": ["cursorLeft"],
+        },
+        {
+            "before": [
+                "s"
+            ],
+            "after": [
+                "g",
+                "j"
+            ]
+            // "commands": ["cursorDown"]
+        },
+        {
+            "before": [
+                "r"
+            ],
+            "after": [
+                "g",
+                "k"
+            ]
+            // "commands": ["cursorUp"]
+        },
+        {
+            "before": [
+                "n"
+            ],
+            "after": [
+                "l"
+            ]
+            // "commands": ["cursorRight"],
+        },
+        {
+            "before": [
+                "h"
+            ],
+            "after": [
+                "r"
+            ]
+        },
+        {
+            "before": [
+                "j"
+            ],
+            "after": [
+                "t"
+            ]
+        },
+        {
+            "before": [
+                "k"
+            ],
+            "after": [
+                "s"
+            ]
+        },
+        {
+            "before": [
+                "l"
+            ],
+            "after": [
+                "n"
+            ]
+        },
+        {
+            "before": [
+                "L"
+            ],
+            "after": [
+                "N"
+            ]
+        },
+        {
+            "before": [
+                "é"
+            ],
+            "after": [
+                "w"
+            ]
+        }
+    ],
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "C-e"
+            ],
+            "commands": [
+                "cursorLineEnd"
+            ]
+        },
+        {
+            "before": [
+                "C-a"
+            ],
+            "commands": [
+                "cursorLineStart"
+            ]
+        },
+        {
+            "before": [
+                "C-d"
+            ],
+            "commands": [
+                "deleteRight"
+            ]
+        },
+    ],
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [
+                "C-e"
+            ],
+            "commands": [
+                "cursorLineEnd"
+            ]
+        },
+        {
+            "before": [
+                "C-a"
+            ],
+            "commands": [
+                "cursorLineStart"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "d",
+                "n"
+            ],
+            "commands": [
+                "editor.action.marker.nextInFiles"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "d",
+                "p"
+            ],
+            "commands": [
+                "editor.action.marker.prevInFiles"
+            ]
+        }
+    ],
+    // -------------------------------------------------------------------------------------------
+    // Rust settings
+    //
+    "rust-analyzer.check.command": "clippy",
+    "rust-analyzer.imports.granularity.group": "module",
+    "[rust]": {
+        "editor.rulers": [
+            {
+                "column": 100,
+            }
+        ],
+    },
+    // -------------------------------------------------------------------------------------------
+    // GitLens
+    //
+    "gitlens.currentLine.enabled": false,
+    "gitlens.codeLens.enabled": false,
+    // -------------------------------------------------------------------------------------------
+    // Spell Checker
+    //
+    "cSpell.userWords": [
+        "Loudet",
+        "Zenoh",
+        "Zetta"
+    ],
+    "cSpell.spellCheckOnlyWorkspaceFiles": true,
+    "cSpell.language": "en",
+    // Only check the spelling of comments.
+    //
+    // I will need to add a `languageId` for all the programming languages for
+    // which I want to have that behavior.
+    "cSpell.languageSettings": [
+        {
+            "languageId": "python",
+            "includeRegExpList": [
+                "/#.*/",
+                "/('''|\"\"\")[^\\1]+?\\1/g"
+            ]
+        },
+        {
+            "languageId": "yaml",
+            "includeRegExpList": [
+                "/#.*/",
+            ]
+        },
+        {
+            // "jsonc" is JSON with comments.
+            "languageId": "jsonc",
+            "includeRegExpList": [
+                "/\/\/.*/",
+            ]
+        },
+        {
+            "languageId": "rust",
+            "includeRegExpList": [
+                "CStyleComment"
+            ]
+        }
+    ],
+    // -------------------------------------------------------------------------------------------
+    // Markdown
+    //
+    "[markdown]": {
+        "editor.wordWrap": "on",
+        "editor.rulers": [
+            120
+        ],
+    },
+    // -------------------------------------------------------------------------------------------
+    // Even Better TOML
+    //
+    "[toml]": {
+        "editor.rulers": [
+            80
+        ]
+    },
+    "evenBetterToml.formatter.alignComments": true,
+    "evenBetterToml.formatter.alignEntries": false,
+    "evenBetterToml.formatter.arrayAutoExpand": true,
+    "evenBetterToml.formatter.inlineTableExpand": true,
+    "evenBetterToml.formatter.arrayTrailingComma": true,
+    "evenBetterToml.formatter.allowedBlankLines": 1,
+    "evenBetterToml.formatter.reorderArrays": true,
+    "evenBetterToml.formatter.reorderKeys": true,
+    "evenBetterToml.formatter.compactArrays": true,
+    "evenBetterToml.formatter.columnWidth": 80,
+    "evenBetterToml.formatter.indentEntries": false,
+    "evenBetterToml.formatter.indentString": "  ",
+    // -------------------------------------------------------------------------------------------
+    // Project Manager
+    //
+    "projectManager.git.baseFolders": [
+        "/Users/julien/dev",
+    ],
+}
