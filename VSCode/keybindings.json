@@ -1,5 +1,27 @@
 // Place your key bindings in this file to override the defaults
 [
+    // Table of contents:
+    //
+    // - Make <ctrl+g> behave like in Emacs: cancel every and all actions.
+    // - When performing a search, make <enter> quit the action and enter normal
+    //   mode.
+    // - Emacs: <M+x> to open the list of commands.
+    // - <ctrl+s> to save a file.
+    // - Emacs navigation
+    // - Peek actions regardless of Vim mode.
+    // - <M+j> to insert another comment line.
+    // - <ctrl+o> and <ctrl+t> to navigate back and forward.
+    // - <C-c l r> to call LSP rename.
+    // - <C-c .> for quick fix (including LSP actions)
+    // - <{ cmd, alt }+backspace> to delete word left
+    // - <ctrl+{PageDown, PageUp}> to navigate next/previous editor in group.
+    // - (Linux) <ctrl+{n,p}> to select next/previous suggestion
+    // - (Linux) <ctrl+f> to find outside of insert mode
+    // - (Linux) <Super+{p,w,b,j}> to interact with VSCode
+    //
+    //
+    // ------------------------------------------------------------------------
+    // Make <ctrl+g> behave like in Emacs: cancel every and all actions.
     {
         "key": "ctrl+g",
         "command": "-workbench.action.gotoLine"
@@ -42,8 +64,14 @@
     },
     {
         "key": "ctrl+g",
-        "command": "closeFindWidget",
-        "when": "editorFocus && findWidgetVisible && !isComposing"
+        "when": "editorFocus && findWidgetVisible && !isComposing",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "closeFindWidget",
+                "extension.vim_escape"
+            ]
+        }
     },
     {
         "key": "ctrl+g",
@@ -95,14 +123,40 @@
         "command": "workbench.action.hideComment",
         "when": "commentEditorFocused"
     },
+    // ------------------------------------------------------------------------
+    // When performing a search, make <enter> quit the action and enter normal
+    // mode.
+    {
+        "key": "enter",
+        "command": "-editor.action.nextMatchFindAction",
+        "when": "editorFocus && findInputFocussed"
+    },
+    {
+        "key": "enter",
+        "when": "editorFocus && findWidgetVisible && !isComposing",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "closeFindWidget",
+                "extension.vim_escape"
+            ]
+        }
+    },
+    // ------------------------------------------------------------------------
+    // Emacs: <M+x> to open the list of commands.
     {
         "key": "alt+x",
         "command": "workbench.action.showCommands"
     },
+    // ------------------------------------------------------------------------
+    // <ctrl+s> to save a file.
     {
         "key": "ctrl+s",
-        "command": "workbench.action.files.save"
+        "command": "workbench.action.files.save",
+        "when": "isLinux"
     },
+    // ------------------------------------------------------------------------
+    // Emacs navigation.
     {
         "key": "alt+b",
         "command": "cursorWordLeft",
@@ -119,6 +173,47 @@
         "when": "inputFocus && vim.mode == 'Insert'"
     },
     {
+        "key": "ctrl+f",
+        "command": "cursorRight",
+        "when": "isLinux && vim.mode == 'Insert'"
+    },
+    {
+        "key": "ctrl+b",
+        "command": "cursorLeft",
+        "when": "isLinux"
+    },
+    {
+        "key": "ctrl+e",
+        "command": "-workbench.action.quickOpen",
+        "when": "isLinux"
+    },
+    {
+        "key": "ctrl+e",
+        "command": "cursorLineEnd",
+        "when": "isLinux"
+    },
+    {
+        "key": "ctrl+a",
+        "command": "-editor.action.selectAll"
+    },
+    {
+        "key": "ctrl+a",
+        "command": "cursorLineStart",
+        "when": "isLinux"
+    },
+    {
+        "key": "alt+m",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "cursorLineStart",
+                "cursorWordStartRight"
+            ]
+        }
+    },
+    // ------------------------------------------------------------------------
+    // Peek actions regardless of Vim mode.
+    {
         "key": "ctrl+c g T",
         "command": "editor.action.peekTypeDefinition",
         "when": "editorFocus"
@@ -133,6 +228,8 @@
         "command": "editor.action.peekDefinition",
         "when": "editorFocus"
     },
+    // ------------------------------------------------------------------------
+    // <M+j> to insert another comment line.
     {
         "key": "alt+j",
         "when": "editorFocus && !editorReadOnly",
@@ -144,6 +241,8 @@
             ]
         }
     },
+    // ------------------------------------------------------------------------
+    // <ctrl+o> and <ctrl+t> to navigate back and forward.
     {
         "key": "ctrl+o",
         "when": "editorFocus && canNavigateBack",
@@ -164,16 +263,22 @@
         "when": "editorFocus",
         "command": "workbench.action.tasks.test"
     },
+    // ------------------------------------------------------------------------
+    // <C-c l r> to call LSP rename.
     {
         "key": "ctrl+c l r",
         "when": "editorTextFocus && editorHasRenameProvider",
         "command": "editor.action.rename"
     },
+    // ------------------------------------------------------------------------
+    // <C-c .> for quick fix (including LSP actions)
     {
         "key": "ctrl+c [KeyV]",
         "command": "editor.action.quickFix",
         "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly"
     },
+    // ------------------------------------------------------------------------
+    // <{ cmd, alt }+backspace> to delete word left
     {
         "key": "cmd+backspace",
         "command": "-deleteAllLeft",
@@ -182,8 +287,15 @@
     {
         "key": "cmd+backspace",
         "command": "deleteWordLeft",
-        "when": "textInputFocus && !editorReadonly"
+        "when": "isMac && textInputFocus && !editorReadonly"
     },
+    {
+        "key": "alt+backspace",
+        "command": "deleteWordLeft",
+        "when": "isLinux && textInputFocus && !editorReadOnly"
+    },
+    // ------------------------------------------------------------------------
+    // <{ cmd, alt }+backspace> to delete word left
     {
         "key": "cmd+q",
         "command": "-workbench.action.quit"
@@ -192,56 +304,8 @@
         "key": "cmd+q",
         "command": "rewrap.rewrapComment"
     },
-    {
-        "key": "n",
-        "command": "list.focusDown",
-        "when": "listFocus && !inputFocus"
-    },
-    {
-        "key": "ctrl+n",
-        "command": "-list.focusDown",
-        "when": "listFocus && !inputFocus"
-    },
-    {
-        "key": "p",
-        "command": "list.focusUp",
-        "when": "listFocus && !inputFocus"
-    },
-    {
-        "key": "ctrl+p",
-        "command": "-list.focusUp",
-        "when": "listFocus && !inputFocus"
-    },
-    {
-        "key": "r",
-        "command": "renameFile",
-        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-    },
-    {
-        "key": "enter",
-        "command": "-renameFile",
-        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-    },
-    {
-        "key": "shift+d",
-        "command": "moveFileToTrash",
-        "when": "explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus"
-    },
-    {
-        "key": "delete",
-        "command": "-moveFileToTrash",
-        "when": "explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus"
-    },
-    {
-        "key": "i",
-        "command": "explorer.newFile",
-        "when": "filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
-    },
-    {
-        "key": "shift+i",
-        "command": "explorer.newFolder",
-        "when": "filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
-    },
+    // ------------------------------------------------------------------------
+    // <ctrl+{PageDown, PageUp}> to navigate next/previous editor in group
     {
         "key": "ctrl+PageDown",
         "command": "workbench.action.nextEditorInGroup"
@@ -249,5 +313,96 @@
     {
         "key": "ctrl+PageUp",
         "command": "workbench.action.previousEditorInGroup"
-    }
+    },
+    {
+        "key": "ctrl+n",
+        "when": "isLinux",
+        "command": "-workbench.action.files.newUntitledFile"
+    },
+    // ------------------------------------------------------------------------
+    // (Linux) <ctrl+{n,p}> to select next/previous suggestion
+    {
+        "key": "ctrl+n",
+        "command": "selectNextSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "selectNextCodeAction",
+        "when": "codeActionMenuVisible"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "list.focusDown",
+        "when": "listFocus && !inputFocus"
+    },
+    {
+        "key": "ctrl+n",
+        "when": "inQuickOpen",
+        "command": "workbench.action.quickOpenNavigateNext"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "editor.action.nextMatchFindAction",
+        "when": "editorFocus && findInputFocussed"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "editor.action.previousMatchFindAction",
+        "when": "editorFocus && findInputFocussed"
+    },
+    {
+        "key": "ctrl+p",
+        "when": "isLinux",
+        "command": "-workbench.action.quickOpen"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "selectPrevSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion"
+    },
+    {
+        "key": "ctrl+p",
+        "when": "inQuickOpen",
+        "command": "workbench.action.quickOpenNavigatePrevious"
+    },
+    // ------------------------------------------------------------------------
+    // (Linux) <ctrl+f> to find outside of insert mode
+    {
+        "key": "ctrl+f",
+        "command": "actions.find",
+        "when": "isLinux && (editorFocus || editorIsOpen) && vim.mode != 'Insert'"
+    },
+    // ------------------------------------------------------------------------
+    // (Linux) <Super+{p,w,b,j}> to interact with VSCode
+    {
+        "key": "meta+p",
+        "when": "isLinux",
+        "command": "workbench.action.quickOpen"
+    },
+    {
+        "key": "meta+w",
+        "when": "isLinux",
+        "command": "workbench.action.closeActiveEditor"
+    },
+    {
+        "key": "ctrl+b",
+        "command": "-workbench.action.toggleSidebarVisibility",
+        "when": "isLinux"
+    },
+    {
+        "key": "meta+b",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "isLinux"
+    },
+    {
+        "key": "ctrl+j",
+        "when": "isLinux",
+        "command": "-workbench.action.togglePanel"
+    },
+    {
+        "key": "meta+j",
+        "when": "isLinux",
+        "command": "workbench.action.togglePanel"
+    },
 ]
