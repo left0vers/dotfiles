@@ -21,6 +21,7 @@
     //
     "vim.useCtrlKeys": false,
     "vim.handleKeys": {
+        "<C-r>": true,
         "<C-v>": true,
         "<C-d>": true,
         "<C-u>": true,
