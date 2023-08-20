@@ -13,4 +13,7 @@ fish_add_path ~/.cargo/bin
 # Load the `starship` shell
 starship init fish | source
 
-source ~/.docker/init-fish.sh || true # Added by Docker Desktop
+if [ -f ~/.docker/init-fish.sh ]
+then
+    source ~/.docker/init-fish.sh || true # Added by Docker Desktop
+end
