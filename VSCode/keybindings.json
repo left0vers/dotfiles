@@ -18,7 +18,7 @@
   // - (Linux) <ctrl+{n,p}> to select next/previous suggestion
   // - (Linux) <ctrl+f> to find outside of insert mode
   // - (Linux) <Super+{p,w,b,j}> to interact with VSCode
-  //
+  // - Tab to fold / open
   //
   // --------------------------------------------------------------------------
   // Make <ctrl+g> behave like in Emacs: cancel every and all actions.
@@ -389,5 +389,17 @@
     "key": "meta+j",
     "when": "isLinux",
     "command": "workbench.action.togglePanel"
+  },
+  // --------------------------------------------------------------------------
+  // Tab to fold / open
+  {
+    "key": "tab",
+    "when": "editorFocus && editorIsOpen && vim.mode == 'Normal'",
+    "command": "editor.toggleFold"
+  },
+  {
+    "key": "shift+tab",
+    "when": "editorFocus && editorIsOpen && editorLangId == 'markdown'",
+    "command": "editor.foldAll"
   }
 ]
