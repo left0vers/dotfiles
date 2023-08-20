@@ -20,7 +20,7 @@
   // - (Linux) <Super+{p,w,b,j}> to interact with VSCode
   //
   //
-  // ------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   // Make <ctrl+g> behave like in Emacs: cancel every and all actions.
   {
     "key": "ctrl+g",
@@ -117,7 +117,7 @@
     "command": "workbench.action.hideComment",
     "when": "commentEditorFocused"
   },
-  // ------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   // When performing a search, make <enter> quit the action and enter normal
   // mode.
   {
@@ -133,20 +133,20 @@
       "commands": ["closeFindWidget", "extension.vim_escape"]
     }
   },
-  // ------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   // Emacs: <M+x> to open the list of commands.
   {
     "key": "alt+x",
     "command": "workbench.action.showCommands"
   },
-  // ------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   // <ctrl+s> to save a file.
   {
     "key": "ctrl+s",
     "command": "workbench.action.files.save",
     "when": "isLinux"
   },
-  // ------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   // Emacs navigation.
   {
     "key": "alt+b",
@@ -199,7 +199,7 @@
       "commands": ["cursorLineStart", "cursorWordStartRight"]
     }
   },
-  // ------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   // Peek actions regardless of Vim mode.
   {
     "key": "ctrl+c g T",
@@ -216,7 +216,7 @@
     "command": "editor.action.peekDefinition",
     "when": "editorFocus"
   },
-  // ------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   // <M+j> to insert another comment line.
   {
     "key": "alt+j",
@@ -226,7 +226,7 @@
       "commands": ["editor.action.insertLineAfter", "editor.action.commentLine"]
     }
   },
-  // ------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   // <ctrl+o> and <ctrl+t> to navigate back and forward.
   {
     "key": "ctrl+o",
@@ -248,21 +248,21 @@
     "when": "editorFocus",
     "command": "workbench.action.tasks.test"
   },
-  // ------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   // <C-c l r> to call LSP rename.
   {
     "key": "ctrl+c l r",
     "when": "editorTextFocus && editorHasRenameProvider",
     "command": "editor.action.rename"
   },
-  // ------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   // <C-c .> for quick fix (including LSP actions)
   {
     "key": "ctrl+c [KeyV]",
     "command": "editor.action.quickFix",
     "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly"
   },
-  // ------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   // <{ cmd, alt }+backspace> to delete word left
   {
     "key": "cmd+backspace",
@@ -279,7 +279,7 @@
     "command": "deleteWordLeft",
     "when": "isLinux && textInputFocus && !editorReadOnly"
   },
-  // ------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   // <{ cmd, alt }+backspace> to delete word left
   {
     "key": "cmd+q",
@@ -289,7 +289,7 @@
     "key": "cmd+q",
     "command": "rewrap.rewrapComment"
   },
-  // ------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   // <ctrl+{PageDown, PageUp}> to navigate next/previous editor in group
   {
     "key": "ctrl+PageDown",
@@ -299,13 +299,13 @@
     "key": "ctrl+PageUp",
     "command": "workbench.action.previousEditorInGroup"
   },
+  // --------------------------------------------------------------------------
+  // (Linux) <ctrl+{n,p}> to select next/previous suggestion
   {
     "key": "ctrl+n",
     "when": "isLinux",
     "command": "-workbench.action.files.newUntitledFile"
   },
-  // ------------------------------------------------------------------------
-  // (Linux) <ctrl+{n,p}> to select next/previous suggestion
   {
     "key": "ctrl+n",
     "command": "selectNextSuggestion",
@@ -351,14 +351,14 @@
     "when": "isLinux && inQuickOpen",
     "command": "workbench.action.quickOpenSelectPrevious"
   },
-  // ------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   // (Linux) <ctrl+f> to find outside of insert mode
   {
     "key": "ctrl+f",
     "command": "actions.find",
     "when": "isLinux && (editorFocus || editorIsOpen) && vim.mode != 'Insert'"
   },
-  // ------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   // (Linux) <Super+{p,w,b,j}> to interact with VSCode
   {
     "key": "meta+p",
