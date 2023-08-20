@@ -323,8 +323,8 @@
   },
   {
     "key": "ctrl+n",
-    "when": "inQuickOpen",
-    "command": "workbench.action.quickOpenNavigateNext"
+    "when": "isLinux && inQuickOpen",
+    "command": "workbench.action.quickOpenSelectNext"
   },
   {
     "key": "ctrl+n",
@@ -348,8 +348,8 @@
   },
   {
     "key": "ctrl+p",
-    "when": "inQuickOpen",
-    "command": "workbench.action.quickOpenNavigatePrevious"
+    "when": "isLinux && inQuickOpen",
+    "command": "workbench.action.quickOpenSelectPrevious"
   },
   // ------------------------------------------------------------------------
   // (Linux) <ctrl+f> to find outside of insert mode
