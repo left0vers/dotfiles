@@ -270,6 +270,7 @@
   "cSpell.userWords": ["Loudet", "Zenoh", "Zetta"],
   "cSpell.spellCheckOnlyWorkspaceFiles": true,
   "cSpell.language": "en,fr",
+  "cSpell.maxDuplicateProblems": 1,
   // Only check the spelling of comments.
   //
   // I will need to add a `languageId` for all the programming languages for
