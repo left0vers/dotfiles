@@ -12,6 +12,7 @@
   // - <M+j> to insert another comment line.
   // - <ctrl+o> and <ctrl+t> to navigate back and forward.
   // - <C-c l r> to call LSP rename.
+  // - <C-c a X> for applications
   // - <C-c .> for quick fix (including LSP actions)
   // - <{ cmd, alt }+backspace> to delete word left
   // - <ctrl+{PageDown, PageUp}> to navigate next/previous editor in group.
@@ -254,6 +255,13 @@
     "key": "ctrl+c l r",
     "when": "editorTextFocus && editorHasRenameProvider",
     "command": "editor.action.rename"
+  },
+  // --------------------------------------------------------------------------
+  // <C-c a X> for applications
+  // - < t > for terminal
+  {
+    "key": "ctrl+c a t",
+    "command": "workbench.action.createTerminalEditor"
   },
   // --------------------------------------------------------------------------
   // <C-c .> for quick fix (including LSP actions)
