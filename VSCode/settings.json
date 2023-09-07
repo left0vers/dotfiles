@@ -334,7 +334,7 @@
   //
   "projectManager.git.baseFolders": ["~/dev"],
   // ------------------------------------------------------------------------
-  // Prettier
+  // Javascript
   //
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
