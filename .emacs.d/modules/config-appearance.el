@@ -32,6 +32,7 @@
 ;; Make the title bar transparent & dark.
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; Optimizations.
 (setq idle-update-delay 5.0)
