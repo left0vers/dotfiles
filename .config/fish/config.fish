@@ -14,6 +14,5 @@ fish_add_path ~/.cargo/bin
 starship init fish | source
 
 if [ -f ~/.docker/init-fish.sh ]
-then
     source ~/.docker/init-fish.sh || true # Added by Docker Desktop
 end
