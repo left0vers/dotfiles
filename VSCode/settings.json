@@ -338,5 +338,13 @@
   //
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  // ------------------------------------------------------------------------
+  // Shellscript
+  //
+  "[shellscript]": {
+    "files.eol": "\n",
+    "editor.formatOnType": true,
+    "editor.defaultFormatter": "foxundermoon.shell-format"
   }
 }
