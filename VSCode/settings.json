@@ -265,11 +265,6 @@
     ]
   },
   // ------------------------------------------------------------------------
-  // GitLens
-  //
-  "gitlens.currentLine.enabled": false,
-  "gitlens.codeLens.enabled": false,
-  // ------------------------------------------------------------------------
   // Spell Checker
   //
   "cSpell.userWords": ["Loudet", "Zenoh", "Zetta"],
