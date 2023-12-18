@@ -1,11 +1,10 @@
-;;; config-shell.el --- Shell configuration -*- lexical-binding: t -*-
+;;; config-modeline.el --- Modeline configuration -*- lexical-binding: t -*-
 
 ;; Author: Julien Loudet
 ;; Maintainer: Julien Loudet
-;; Version: version
 ;; Package-Requires: (dependencies)
-;; Homepage: https://github.com/left0vers/dotfiles.git
-;; Keywords: shell, eshell
+;; Homepage: https://github.com/left0vers/dotfiles
+;; Keywords: emacs
 
 
 ;; This file is not part of GNU Emacs
@@ -23,20 +22,20 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
 ;;; Commentary:
+;;
+;; The look of the modeline was heavily inspired by that of Protesilaos Stavrou.
+;; You can access the code here:
+;;
+;; https://protesilaos.com/emacs/dotemacs
 
 ;;; Code:
 
-(require 'eshell)
-(require 'em-term)
-
-(add-to-list 'eshell-visual-subcommands '("git" "log" "diff" "show"))
-(add-to-list 'eshell-visual-options '("git" "--help" "--paginate"))
-
-(add-hook 'eshell-mode-hook #'(lambda () (setq-local company-idle-delay nil
-                                                     show-trailing-whitespace nil)))
+(defun l0/modeline-major-mode-indicator ()
+  "Return an emoji corresponding to the current major mode."
+  (cond
+   ()))
 
 
-(provide 'config-shell)
-;;; config-shell.el ends here
+(provide 'config-modeline)
+;;; config-modeline.el ends here

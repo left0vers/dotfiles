@@ -20,9 +20,10 @@
 ;; `diff-hl': show in the gutter which parts of a file have been modified.
 ;;
 (use-package diff-hl
+  :ensure t
+  :hook (after-init . global-diff-hl-mode)
   :config
-  (setq diff-hl-draw-borders nil)
-  (add-hook 'after-init-hook 'global-diff-hl-mode))
+  (setq diff-hl-draw-borders nil))
 
 ;;
 ;; Forge: how to access the GitHub features through Magit.

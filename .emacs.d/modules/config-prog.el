@@ -5,135 +5,145 @@
 ;;; Code:
 
 (require 'general)
-;; (require 'doom-themes)
-;; (require 'hydra)
+(require 'hydra)
+(require 'flymake)
 
-
-(show-paren-mode    t)
-(electric-pair-mode t)
+;; (use-package emacs
+;;   :config
+;;   (setq major-mode-remap-alist '((bash-mode       . bash-ts-mode)
+;;                                  (css-mode        . css-ts-mode)
+;;                                  (js2-mode        . js-ts-mode)
+;;                                  (json-mode       . json-ts-mode)
+;;                                  (python-mode     . python-ts-mode)
+;;                                  (rust-mode       . rust-ts-mode)
+;;                                  (rustic-mode     . rust-ts-mode)
+;;                                  (typescript-mode . typescript-ts-mode)
+;;                                  (yaml-mode       . yaml-ts-mode))))
 
 (pcase modal-mode
   (:evil (general-def 'normal
            "g r" 'xref-find-references
            "g d" 'xref-find-definitions)))
 
-
-;; (require 'flyspell)
-;; (setenv "LANG" "en_US")
-;; (setq ispell-program-name "hunspell")
-;; (setq ispell-local-dictionary "en_US")
-;; (setq ispell-hunspell-dict-paths-alist
-;;       '(("en_US" "/Users/julien/Library/Dictionaries/en_US.aff")
-;;         ("fr"    "/Users/julien/Library/Dictionaries/fr.aff")))
-;; (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-
-
-(require 'flymake)
-
-(defhydra flymake/navigate-diagnostics ()
-  "Navigate flymake diagnostics with single key strokes."
-  ("n" flymake-goto-next-error "next")
-  ("p" flymake-goto-prev-error "prev"))
-
-(pcase modal-mode
-  (:evil (general-def 'normal
-           "M-d"      'flymake/navigate-diagnostics/body 
-           "SPC d n"  'flymake/navigate-diagnostics/flymake-goto-next-error
-           "SPC d p"  'flymake/navigate-diagnostics/flymake-goto-prev-error
-           "SPC d s"  'flymake-start
-           "SPC d l"  'flymake-show-project-diagnostics)))
-
-
-(setq flymake-no-changes-timeout nil
-      flymake-start-on-save-buffer nil
-      flymake-compilation-prevents-syntax-check nil)
-
-(add-hook 'prog-mode-hook (lambda () (add-hook 'after-save-hook 'flymake-start nil t)))
-
-;; (use-package flymake-diagnostic-at-point
-;;   :config
-;;   (add-hook 'flymake-mode-hook #'flymake-diagnostic-at-point-mode))
-
-;;;
-;;; `flycheck': syntax checker.
-;;;
-;; (use-package flycheck
-;;   :preface
-
-;;   ;; https://www.masteringemacs.org/article/seamlessly-merge-multiple-documentation-sources-eldoc
-;;   ;;
-;;   ;; Show the error / warning / info messages produced by Flycheck in the echo
-;;   ;; area alongside the Eldoc documentation.
-;;   (defun my/flycheck-eldoc (callback &rest _ignored)
-;;     "Print flycheck messages at point by calling CALLBACK."
-;;     (when-let ((flycheck-errors (and flycheck-mode (flycheck-overlay-errors-at (point)))))
-;;       (mapc
-;;        (lambda (err)
-;;          (funcall callback
-;;                   (format "%s: %s"
-;;                           (let ((level (flycheck-error-level err)))
-;;                             (pcase level
-;;                               ('info (propertize "I" 'face 'flycheck-error-list-info))
-;;                               ('error (propertize "E" 'face 'flycheck-error-list-error))
-;;                               ('warning (propertize "W" 'face 'flycheck-error-list-warning))
-;;                               (_ level)))
-;;                           (flycheck-error-message err))
-;;                   :thing (or (flycheck-error-id err)
-;;                              (flycheck-error-group err))
-;;                   :face 'font-lock-doc-face))
-;;        flycheck-errors)))
-
-;;   (defun my/flycheck-prefer-eldoc ()
-;;     "Tell Flycheck to use eldoc."
-;;     (add-hook 'eldoc-documentation-functions #'my/flycheck-eldoc nil t)
-;;     (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly
-;;           flycheck-display-errors-function nil
-;;           flycheck-help-echo-function nil))
-  
-;;   :config
-;;   (setq flycheck-check-syntax-automatically '(mode-enabled save))
-;;   ;; (add-hook 'after-init-hook 'global-flycheck-mode)
-;;   (general-def '(normal)
-;;     "SPC f n" 'flycheck-next-error
-;;     "SPC f p" 'flycheck-previous-error)
-
-;;   :hook ((after-init . global-flycheck-mode)
-;;          (flycheck-mode . my/flycheck-prefer-eldoc)))
-
-
-;;
-;; `tree-sitter'
-;;
-(use-package tree-sitter)
-(use-package tree-sitter-langs
-  :after tree-sitter
+(use-package flymake
+  :diminish
+  :hook (prog-mode . flymake-mode)
+  :init
+  (setq flymake-fringe-indicator-position 'left-fringe)
   :config
-  (global-tree-sitter-mode)
-  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+  (setq elisp-flymake-byte-compile-load-path
+        (append elisp-flymake-byte-compile-load-path load-path))
+  (setq flymake-no-changes-timeout 1)
 
+  (defhydra flymake/navigate-diagnostics ()
+    "Navigate diagnostics with single key strokes."
+    ("C-n" flymake-goto-next-error "next")
+    ("C-p" flymake-goto-prev-error "prev"))
 
-;;
-;; treemacs
-;;
-(use-package treemacs
-  :config
   (pcase modal-mode
     (:evil (general-def 'normal
-             "SPC t" '(:ignore t :which-key "[T]reemacs")
-             "SPC t t" 'treemacs-select-window
-             "SPC t q" 'treemacs-narrow-to-current-file))))
+             "M-d"      'flymake/navigate-diagnostics/body
+             "SPC d n"  'flymake/navigate-diagnostics/flymake-goto-next-error
+             "SPC d p"  'flymake/navigate-diagnostics/flymake-goto-prev-error
+             "SPC d s"  'flymake-start
+             "SPC d l"  'flymake-show-project-diagnostics))))
 
-  ;; (with-eval-after-load 'treemacs
-  ;;   (doom-themes-treemacs-config))
+;; (use-package flymake-codespell
+;;   :ensure t
+;;   :hook ((prog-mode . flymake-codespell-setup-backend)))
 
-  ;; (setq doom-themes-treemacs-theme "doom-colors"
-  ;;       treemacs-project-follow-mode t
-  ;;       treemacs-indent-guide-mode t))
+;; (use-package flycheck
+;;   :ensure t
+;;   :diminish
+;;   :hook (after-init . global-flycheck-mode)
+;;   :config
+
+;;   (defhydra flycheck/navigate-diagnostics ()
+;;     "Navigate flycheck diagnostics with single key strokes."
+;;     ("C-n" flycheck-next-error "next")
+;;     ("C-p" flycheck-previous-error "prev"))
+
+;;   (pcase modal-mode
+;;     (:evil (general-def 'normal
+;;              "M-d"     'flycheck/navigate-diagnostics/body
+;;              "SPC d n" 'flycheck/navigate-diagnostics/flycheck-next-error
+;;              "SPC d p" 'flycheck/navigate-diagnostics/flycheck-previous-error))))
+
+;; (use-package sideline
+;;   :ensure t)
+
+;; (use-package sideline-flymake
+;;   :ensure t
+;;   :diminish sideline-mode
+;;   :hook (flymake-mode . sideline-mode)
+;;   :init
+;;   (setq sideline-flymake-display-mode 'point
+;;         sideline-backends-right '(sideline-flymake)))
+
+;; (use-package sideline-lsp
+;;   :ensure t
+;;   :init
+;;   (add-to-list 'sideline-backends-right 'sideline-lsp))
 
 
-(use-package yaml-mode
+;; (setq flymake-no-changes-timeout nil
+;;       flymake-start-on-save-buffer nil
+;;       flymake-compilation-prevents-syntax-check nil)
+
+;; (add-hook 'prog-mode-hook (lambda () (add-hook 'after-save-hook 'flymake-start nil t)))
+
+(use-package show-paren
+  :hook (after-init . show-paren-mode)
   :config
-  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
+  (setq show-paren-delay 0.1
+        show-paren-highlight-openparen t
+        show-paren-when-point-inside-paren t
+        show-paren-when-point-in-periphery t))
+
+(use-package smartparens
+  :ensure t
+  :diminish
+  :hook (after-init . smartparens-global-mode)
+  :config
+  (setq sp-highlight-pair-overlay nil
+        sp-highlight-wrap-overlay nil
+        sp-highlight-wrap-tag-overlay nil)
+  (setq sp-navigate-skip-match nil
+        sp-navigate-consider-sgml-tags nil)
+  (setq sp-max-prefix-length 25
+        sp-max-pair-length 4)
+
+  ;; -- Stolen from doom emacs:
+  ;; Autopair quotes more conservatively; if I'm next to a word/before another
+  ;; quote, I don't want to open a new pair or it would unbalance them.
+  (let ((unless-list '(sp-point-before-word-p
+                       sp-point-after-word-p
+                       sp-point-before-same-p)))
+    (sp-pair "'"  nil :unless unless-list)
+    (sp-pair "\"" nil :unless unless-list))
+
+  (dolist (brace '("(" "{" "["))
+    (sp-pair brace nil
+             :post-handlers '(("||\n[i]" "RET"))
+             ;; :post-handlers '(("||\n[i]" "RET") ("| " "SPC"))
+             ;; Don't autopair opening braces if before a word character or
+             ;; other opening brace. The rationale: it interferes with manual
+             ;; balancing of braces, and is odd form to have s-exps with no
+             ;; whitespace in between, e.g. ()()(). Insert whitespace if
+             ;; genuinely want to start a new form in the middle of a word.
+             :unless '(sp-point-before-word-p sp-point-before-same-p)))
+
+  (sp-with-modes '(minibuffer-mode)
+    (sp-local-pair "'" nil :actions nil)
+    (sp-local-pair "\"" nil :actions nil)
+    (sp-local-pair "(" nil :wrap "C-("))
+
+  (sp-with-modes 'emacs-lisp-mode
+    ;; disable ', it's the quote character!
+    (sp-local-pair "'" nil :actions nil)
+    ;; also only use the pseudo-quote inside strings where it
+    ;; serves as hyperlink.
+    (sp-local-pair "`" "'" :when '(sp-in-string-p sp-in-comment-p))))
 
 (provide 'config-prog)
 ;;; config-prog.el ends here

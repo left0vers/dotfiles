@@ -5,6 +5,8 @@
 ;;; Code:
 
 (use-package jinx
+  :ensure t
+  :diminish
   :hook (emacs-startup . global-jinx-mode)
   :bind ([remap ispell-word] . jinx-correct))
 

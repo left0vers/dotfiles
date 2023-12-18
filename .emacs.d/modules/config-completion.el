@@ -5,161 +5,165 @@
 ;;; Code:
 
 (require 'general)
-
-;; Ignore case when completing.
-(setq read-file-name-completion-ignore-case t
-      read-buffer-completion-ignore-case t
-      completion-ignore-case t)
+(require 'xref)
 
 ;;
-;; Orderless: completion style that divides the pattern into space-separated
-;; components, and matches candidates that match all of the components in any
-;; order.
+;; Consult: search and navigation commands based on the completion function
+;; backed in Emacs, `completing-read'.
 ;;
-(use-package orderless
+(use-package consult
+  :ensure t
+  :bind (("C-x b"  . consult-buffer)
+         ;; ("M-i" . consult-imenu) ;; replaced by 'symbols-outline
+         ("C-s"    . consult-line)
+         ("M-y"    . consult-yank-from-kill-ring))
   :config
-  (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles basic partial-completion)))))
+  (setq xref-show-xrefs-function       #'consult-xref
+        xref-show-definitions-function #'consult-xref
+        ;; TODO Investigate the narrowing key.
+        ;; consult-narrow-key "«"
+        ;; By default, the variable is set to `any' which means that any key
+        ;; will trigger the preview (i.e. navigating to the previous/next line
+        ;; will preview the file at point).
+        ;;
+        ;; Setting it to a specific key deactivate this behaviour.
+        consult-preview-key "M-."))
+
+;; NOTE Declaring these keybindings inside the `:config' section will not make
+;; them active until `consult' is first loaded.
+(pcase modal-mode
+  (:evil (general-def 'normal
+           "SPC b b"  'consult-buffer
+           "SPC b p"  'consult-project-buffer
+           "SPC / g"  'consult-git-grep
+           "SPC / s"  'consult-ripgrep)))
+
+(use-package eshell
+  :bind (("C-r" . consult-history)))
 
 
 ;;
-;; Vertico: minibuffer completion overlay.
+;; Vertico
 ;;
 (use-package vertico
+  :ensure t
+  :hook (after-init . vertico-mode)
   :config
-  (setq vertico-cycle t)
-  (vertico-mode)
+  (setq vertico-cycle t))
 
-  ;; Extension: vertico-directory. Such that when I press "M-DEL" I either go up
-  ;; one directory or I remove part of the file name (depending if the last part
-  ;; of the path is a subdirectory or a file name).
-  ;; (straight-use-package
-  ;;  '(vertico-directory :type nil :local-repo "vertico/extensions"))
-  (require 'vertico-directory)
-  (general-def vertico-map
-    "M-DEL" 'vertico-directory-delete-word))
+(use-package vertico-directory
+  :after vertico
+  :bind (:map vertico-map
+              ("M-DEL" . vertico-directory-delete-word)))
 
+(use-package nerd-icons-completion
+  :if (display-graphic-p)
+  :after vertico
+  :ensure t
+  :hook (vertico-mode . nerd-icons-completion-mode))
 
 ;;
-;; Marginalia: helpful colorful annotations placed at the margin of the
-;; minibuffer for your completion candidates.
+;; Marginalia
 ;;
 (use-package marginalia
+  :ensure t
   :config
   (marginalia-mode))
 
 
 ;;
-;; Consult: practical commands based on the Emacs completion function
-;; completing-read.
-;; 
-(use-package consult
+;; Company
+;;
+(use-package company
+  :ensure t
+  :diminish
+  :commands (company-complete-common
+             company-complete-common-or-cycle
+             company-manual-begin
+             company-grab-line)
+  :hook (after-init . global-company-mode)
+  :init
+  (setq company-tooltip-limit 10
+        company-tooltip-minimum 10
+        company-tooltip-flip-when-above t
+        company-tooltip-align-annotations t
+        company-require-match 'never
+        company-global-modes
+        '(not erc-mode
+              circe-mode
+              message-mode
+              help-mode
+              gud-mode
+              vterm-mode)
+
+        ;; Buffer-local backends will be computed when loading a major mode,
+        ;; only global default here.
+        company-backends '((company-capf company-dabbrev))
+
+        company-selection-wrap-around t
+        company-insertion-on-trigger nil
+
+        ;; Only search the current buffer for dabbrev.
+        company-dabbrev-other-buffers nil
+        ;; Make dabbrev full case-sensitive.
+        company-dabbrev-ignore-case nil
+        company-dabbrev-downcase nil)
+
+  (if (display-graphic-p)
+      (setq company-frontends
+            '(company-pseudo-tooltip-frontend ; always show candidate in overlay
+              company-echo-metadata-frontend)) ; show selected candidate doc
+    (setq company-frontends '(company-pseudo-tooltip-frontend)))
+
   :config
-  (setq consult-preview-key "M-.")
-
-  ;; Use Consult to select xref locations with preview
-  (setq xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref)
-
   (pcase modal-mode
-    (:evil (general-def 'normal
-             "SPC b b" 'consult-buffer
-             "SPC b p" 'consult-project-buffer
-             "SPC b K" 'kill-this-buffer
-             "SPC /"   'consult-ripgrep))
-    (:god-mode (progn
-                 (global-set-key (kbd "C-x C-b") 'consult-buffer)
-                 (global-set-key (kbd "C-x C-/") 'consult-ripgrep)))))
+    (:evil (progn
+            ;; (require 'evil-core)
+            ;; (add-hook 'company-mode-hook #'evil-normalize-keymaps)
+            (general-def 'insert
+              "C-SPC" 'company-manual-begin))))
+
+  (general-def 'eshell-mode-map
+    "<tab>" 'company-manual-begin)
+
+  (general-def 'company-active-map
+    "<tab>"      'company-complete
+    "C-<return>" 'newline-and-indent
+    "M-s"        'company-filter-candidates
+    "M-«"        'company-select-first
+    "M-»"        'company-select-last
+    "C-w"        'evil-delete-backward-word
+    "<return>"   'company-complete-selection))
 
 
 ;;
-;; Corfu: enhances completion at point with a small completion popup.
+;; Company-box
 ;;
-(use-package corfu
+(use-package company-box
+  :if (display-graphic-p)
+  :diminish
+  :ensure t
+  :hook (company-mode . company-box-mode)
   :config
-  (setq corfu-cycle t
-        ;; Only use `corfu' when calling `completion-at-point' or
-        ;; `indent-for-tab-command'?
-        corfu-auto t
-        corfu-min-width 20
-        corfu-quit-at-boundary 'separator
-        corfu-quit-no-match t
-        ;; corfu-separator ?\s
-        corfu-preselect 'valid)
-
-  ;; - if I press RET, a newline is inserted,
-  ;; - if I press TAB and Corfu is active, complete.
-  (setq tab-always-indent 'complete
-        ;; Always cycle no matter the number of candidates for completion.
-        completion-cycle-threshold t)
-  (general-def corfu-map
-    "<tab>"      'corfu-complete
-    "<return>"   'newline
-    "C-<return>" 'corfu-insert)
-
-  (general-def
-    "M-TAB" 'completion-at-point)
-
-  (add-hook 'eshell-mode-hook
-            (lambda ()
-              (setq-local corfu-auto nil)
-              (corfu-mode)))
-
-  (global-corfu-mode)
-
-  ;; (advice-add 'evil-normal-state :after 'corfu-quit)
-
-  ;; Sort the candidates based on the number of times they are used.
-  ;; (straight-use-package '(corfu-history :type nil :local-repo "corfu/extensions"))
-  (require 'savehist)
-  (require 'corfu-history)
-  (corfu-history-mode)
-  (add-to-list 'savehist-additional-variables 'corfu-history)
-
-  (require 'corfu-popupinfo)
-  (add-hook 'corfu-mode-hook #'corfu-popupinfo-mode)
-  (setq corfu-popupinfo-delay '(1.0 . 1.0)))
+  (setq company-box-show-single-candidate t
+        company-box-backends-colors nil
+        company-box-doc-delay 1
+        company-box-icons-alist 'company-box-icons-images))
 
 
-;; `cape': Completion At Point Extensions.
-(use-package cape
+(use-package orderless
+  :ensure t
   :config
-  (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (setq completion-styles '(orderless basic)
+        completion-category-overrides '((file (styles basic partial-completion))))
 
-  ;; Silence the pcomplete capf, no errors or messages!
-  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
+  ;; We follow a suggestion by company maintainer u/hvis:
+  ;; https://www.reddit.com/r/emacs/comments/nichkl/comment/gz1jr3s/
+  (defun company-completion-styles (capf-fn &rest args)
+    (let ((completion-styles '(basic partial-completion)))
+      (apply capf-fn args)))
 
-  ;; Ensure that pcomplete does not write to the buffer
-  ;; and behaves as a pure `completion-at-point-function'.
-  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
-
-
-;;
-;; Enhance shell completion.
-;;
-(use-package pcmpl-args
-  :ensure t)
-
-
-;; `svg-lib' and `kind-icon' add icons to the completion pop-up.
-(use-package svg-lib)
-
-(use-package kind-icon
-  :config
-  (when (eq system-type 'gnu/linux)
-    ;; Taken from https://github.com/jdtsmith/kind-icon/issues/22
-    (setq kind-icon-default-style
-          '(:padding -1 :stroke 0 :margin 0 :radius 0 :height 0.5 :scale 1)))
-
-  (setq kind-icon-default-face 'corfu-default
-        kind-icon-use-icons t
-        kind-icon-blend-background nil
-        kind-icon-blend-frac 0.08)
-
-  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
-
+  (advice-add 'company-capf :around #'company-completion-styles))
 
 (provide 'config-completion)
 ;;; config-completion.el ends here

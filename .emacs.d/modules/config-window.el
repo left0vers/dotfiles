@@ -1,4 +1,4 @@
-;;; config-navigation.el --- Summary:
+;;; config-window.el --- Summary:
 ;;;
 ;;; Commentary:
 ;;;
@@ -6,20 +6,11 @@
 
 (require 'general)
 
-
-;;
-;; `avy': quickly navigate to any place in the buffer.
-;;
-(use-package avy)
-(require 'avy)
-(global-set-key (kbd "M-g g") 'avy-goto-line)
-(global-set-key (kbd "C-'") 'avy-goto-char-timer)
-
-
 ;;
 ;; `ace-window': quickly navigate to any window.
 ;;
 (use-package ace-window
+  :ensure t
   :init
   ;; NOTE: This has to go before the corresponding `require' statement!
   (defvar aw-dispatch-alist
@@ -39,20 +30,17 @@
   :config
   (setq aw-keys '(?a ?u ?i ?e ?t ?r ?n)
         aw-dispatch-always t
-        aw-scope 'global)
+        aw-background nil
+        aw-scope 'frame)
+
+  ;; Make the letters bigger on the screen.
+  (custom-set-faces
+   '(aw-leading-char-face
+     ((t (:foreground "red" :weight bold :height 3.0)))))
+
   (general-def
     "M-o" 'ace-window))
 
 
-;;
-;; "Smartly" expand the region
-;;
-(use-package expand-region
-  :config
-  (pcase modal-mode
-    (:evil (general-def '(visual)
-             "+" 'er/expand-region
-             "-" 'er/contract-region))))
-
-(provide 'config-navigation)
-;;; config-navigation.el ends here
+(provide 'config-window)
+;;; config-window.el ends here

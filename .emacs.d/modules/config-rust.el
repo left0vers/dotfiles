@@ -4,15 +4,17 @@
 ;;;
 ;;; Code:
 
+(require 'general)
 
 (defun config/rust ()
   "Set the `fill-column' to a 100 characters."
-  (setq-local fill-column 100)
-  (lsp-inlay-hints-mode 1))
+  (setq-local fill-column 120)
+  (pcase lsp-client
+    (:lsp-mode (lsp-inlay-hints-mode 1))))
 
 
 ;; Content to put in the `.dir-locals.el' file at the root of a Rust project
-;; 
+;;
 ;; ((rustic-mode
 ;;   .
 ;;   ((eglot-workspace-configuration
@@ -28,12 +30,25 @@
 
 
 (use-package rustic
+  :ensure t
+  :diminish
   :config
-  (setq
-   rustic-compile-directory-method #'rustic-buffer-workspace
-   rustic-default-clippy-arguments "--tests --all-targets -- -D warnings"
-   rustic-default-test-arguments ""
-   rustic-format-trigger 'on-save)
+  (setq-local mode-require-final-newline t)
+  (setq rustic-compile-directory-method #'rustic-buffer-workspace
+        rustic-default-clippy-arguments "--tests --all-targets -- -D warnings"
+        rustic-default-test-arguments ""
+        rustic-indent-method-chain t
+        rust-prettify-symbols-alist nil
+        rustic-format-trigger 'on-save)
+
+  (with-eval-after-load 'smartparens
+    (sp-with-modes '(rustic-mode)
+      ;; disable ', it's the lifetime specifier.
+      (sp-local-pair "'" nil :actions nil)
+      (sp-local-pair "r\#" "\"\"\#" :actions nil)
+      (sp-local-pair "<" ">" :unless '(sp-point-before-word-p) :wrap "C-«")))
+
+  (setq-local company-backends '((company-capf company-dabbrev-code company-files)))
   (pcase lsp-client
     (:eglot (progn
               (setq rustic-format-on-save-method #'eglot-format-buffer
@@ -59,6 +74,18 @@
 
   (unless (executable-find "cargo-outdated")
     (message "WARNING: rust package `cargo-outdated' was not found.")))
+
+(use-package cargo-mode
+  :ensure t
+  :diminish
+  :hook (rustic-mode . cargo-minor-mode)
+  :config
+  (general-def 'cargo-minor-mode-map
+    "C-c m" 'cargo-mode-command-map)
+
+  (pcase 'modal-mode
+    (:evil (general-def 'normal 'cargo-minor-mode-map
+             "SPC m c" 'cargo-mode-command-map))))
 
 
 (provide 'config-rust)
