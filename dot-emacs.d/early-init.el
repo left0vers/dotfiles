@@ -36,10 +36,6 @@
 ;; Default coding system.
 (set-language-environment "UTF-8")
 
-;; Force evil to respect visual line mode. I tried setting it in the `:init'
-;; section of `evil' but it did not work.
-(setq evil-respect-visual-line-mode t)
-
 ;; Faster to disable here.
 (push '(menu-bar-lines . 0)   default-frame-alist)
 (push '(tool-bar-lines . 0)   default-frame-alist)

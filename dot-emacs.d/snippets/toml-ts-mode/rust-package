@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: rust-package
+# key: rust package
+# --
+
+authors = { workspace = true }
+categories = { workspace = true }
+description = "$1"
+edition = { workspace = true }
+homepage = { workspace = true }
+license = { workspace = true }
+name = "$2"
+repository = { workspace = true }
+version = { workspace = true }
+$0
