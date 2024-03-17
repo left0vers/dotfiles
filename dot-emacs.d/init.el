@@ -257,6 +257,7 @@
     "C-e" 'move-end-of-line
     "C-a" 'move-beginning-of-line
     "C-b" 'backward-char
+    "C-f" 'forward-char
     "C-r" 'undo-redo
     "s-u" 'universal-argument
     "s-s" 'save-buffer
