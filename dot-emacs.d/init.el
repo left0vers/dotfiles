@@ -521,64 +521,55 @@
   (setq completion-styles '(orderless basic)
         completion-category-overrides '((file (styles basic partial-completion)))))
 
-;;
-;; Corfu
-;;
-(use-package corfu
-  :ensure t
-  :config
-  (setq corfu-auto t
-        corfu-cycle t
-        corfu-preselect 'first
-        corfu-min-width 20)
-
-  (general-def 'insert
-    "C-SPC" 'completion-at-point)
-
-  (general-def   'corfu-map
-    "TAB"        'corfu-complete
-    "<tab>"      'corfu-complete
-    "M-SPC"      'corfu-insert-separator
-    "C-<return>" 'newline-and-indent
-    "M-<return>" 'newline-and-indent
-    "<return>"   'corfu-insert)
-
-  (add-hook 'evil-normal-state-entry-hook #'corfu-quit)
-  (add-hook 'eshell-mode-hook (lambda ()
-                                (setq-local corfu-auto nil)))
-
-  :init
-  (global-corfu-mode)
-  (corfu-popupinfo-mode))
-
-(use-package nerd-icons-corfu
-  :ensure t
-  :init
-  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 ;;
 ;; Cape
 ;;
 (use-package cape
   :ensure t
-  :bind (("M-p p"  . completion-at-point) ;; capf
-         ("M-p t"  . complete-tag)        ;; etags
-         ("M-p /"  . cape-dabbrev)        ;; or dabbrev-completion
-         ("M-p h"  . cape-history)
-         ("M-p f"  . cape-file)
-         ("M-p k"  . cape-keyword)
-         ("M-p s"  . cape-elisp-symbol)
-         ("M-p e"  . cape-elisp-block)
-         ("M-p a"  . cape-abbrev)
-         ("M-p l"  . cape-line)
-         ("M-p d"  . cape-dict)
-         ("M-p :"  . cape-emoji)
-         ("M-p \\" . cape-tex)
-         ("M-p &"  . cape-sgml)
-         ("M-p r"  . cape-rfc1345))
+  :init
+  (add-to-list 'completion-at-point-functions #'cape-emoji))
+
+
+;;
+;; Company
+;;
+(use-package company
+  :ensure t
+  :hook (after-init . global-company-mode)
   :config
-  (setq cape-dabbrev-check-other-buffers nil)
-  (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
+  (setq company-tooltip-align-annotations t)
+  (setq company-tooltip-limit 10)
+  (setq company-tooltip-offset-display 'lines)
+  (setq company-tooltip-minimum 6)
+  (setq company-tooltip-flip-when-above nil)
+  (setq company-format-margin-function 'company-vscode-light-icons-margin)
+  (setq company-text-icons-add-background t)
+  (setq company-dabbrev-downcase nil)
+  (setq company-dabbrev-other-buffers t)
+  (setq company-dabbrev-ignore-case 'keep-prefix)
+
+  (add-hook 'prog-mode-hook (lambda ()
+                              (setq company-backends '((company-capf company-dabbrev-code)))))
+
+  (general-def company-mode-map
+    "C-w" nil
+    "M-h" 'company-show-doc-buffer)
+
+  (general-def 'insert
+    "C-SPC" 'company-complete)
+
+  (general-def '(insert normal)
+    :prefix "M-/"
+    "y" 'company-yasnippet
+    "f" 'company-files
+    "/" 'company-dabbrev))
+
+(use-package company-prescient
+  :ensure t
+  :after company
+  :hook (company-mode . company-prescient-mode))
+
 
 ;; -----------------------------------------------------------------------------
 ;; SPELL-CHECKER
@@ -611,7 +602,6 @@
              yas-activate-extra-mode
              yas-deactivate-extra-mode
              yas-maybe-expand-abbrev-key-filter)
-  :bind (("M-p y" . yas-insert-snippet))
   :config
   (advice-add #'yas-snippet-dirs :filter-return #'delete-dups))
 
