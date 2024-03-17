@@ -31,6 +31,9 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
+;; Remember the previously used mini-buffer commands between Emacs session.
+(savehist-mode 1)
+
 (setq-default show-trailing-whitespace t)
 
 (setq save-interprogram-paste-before-kill t
