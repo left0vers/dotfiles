@@ -382,6 +382,7 @@
 
 (require 'org)
 (set-face-attribute 'org-block nil :inherit 'default)
+(setq org-hide-emphasis-markers t)
 
 (use-package org-modern
   :ensure t
