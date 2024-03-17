@@ -519,11 +519,7 @@
   :ensure t
   :config
   (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion))
-                                        (eglot (styles orderless))
-                                        (eglot-capf (styles orderless)))))
-
+        completion-category-overrides '((file (styles basic partial-completion)))))
 
 ;;
 ;; Corfu
