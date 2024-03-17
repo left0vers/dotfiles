@@ -799,35 +799,6 @@
   :config
   (custom-set-faces '(breadcrumb-face ((t :foreground "#72809a")))))
 
-;; (use-package lsp-mode
-;;   :ensure t
-;;   :hook ((lsp-mode . lsp-enable-which-key-integration)
-;;          (rust-ts-mode . lsp))
-;;   :commands (lsp)
-;;   :config
-;;   (setq lsp-inlay-hint-enable t)
-;;   (custom-set-faces
-;;    '(lsp-inlay-hint-face ((t
-;;                              :height 0.8
-;;                              ;; :foreground "#d8dee9"
-;;                              :foreground "#72809a"
-;;                              ;; :background "#2E3440"
-;;                              :slant italic))))
-;;   (setq lsp-rust-analyzer-cargo-watch-command "clippy")
-;;   (general-def 'normal lsp-mode-map
-;;     "SPC l r" 'lsp-rename
-;;     "SPC l a" 'lsp-execute-code-action
-;;     "g t"     'lsp-find-type-definition)
-;;   (general-def lsp-mode-map
-;;     "C-c ." 'lsp-execute-code-action))
-
-;; (use-package consult-lsp
-;;   :ensure t
-;;   :config
-;;   (general-def 'normal lsp-mode-map
-;;     "SPC l d" 'consult-lsp-diagnostics
-;;     "SPC l s" 'consult-lsp-symbols))
-
 ;; -----------------------------------------------------------------------------
 ;; RUST
 ;; (use-package flycheck-rust
