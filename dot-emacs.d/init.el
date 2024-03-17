@@ -801,16 +801,12 @@
 
 ;; -----------------------------------------------------------------------------
 ;; RUST
-;; (use-package flycheck-rust
-;;   :ensure t)
-
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-ts-mode))
 (add-hook 'rust-ts-mode-hook #'eglot-ensure)
 (add-hook 'rust-ts-mode-hook
           (lambda ()
             "Rust specific configurations."
             (setq-local fill-column 120)
-            ;; (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
             ;; The last argument to `add-hook' makes it local to the mode.
             (add-hook 'before-save-hook #'eglot-format-buffer nil t)))
 
