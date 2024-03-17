@@ -710,6 +710,9 @@
   ;; which then appears once we open a new version-controlled project via
   ;; `project.el'
   (require 'magit-extras)
+  (setq magit-display-buffer-function
+        #'magit-display-buffer-fullframe-status-v1)
+  (setq magit-bury-buffer-function #'magit-restore-window-configuration)
 
   (general-def 'normal
     "SPC g" '(:ignore t :which-key "[M]agit")
