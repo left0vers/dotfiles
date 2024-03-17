@@ -220,8 +220,6 @@
   "C-x t d"   'tab-close
   "C-x t D"   'tab-close-other
 
-  "M-/"       'dabbrev-completion
-
   "C-c e"     '(:ignore t :which-key "[e]macs")
   "C-c e l"   'list-packages
   "C-c e p"   'list-processes)
