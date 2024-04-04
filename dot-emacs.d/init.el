@@ -786,7 +786,10 @@
 
 (use-package diff-hl
   :ensure t
-  :hook (after-init . global-diff-hl-mode))
+  :hook ((after-init         . global-diff-hl-mode)
+         (dired-mode         . diff-hl-dired-mode)
+         (magit-pre-refresh  . diff-hl-magit-pre-refresh)
+         (magit-post-refresh . diff-hl-magit-post-refresh)))
 
 
 ;; -----------------------------------------------------------------------------
