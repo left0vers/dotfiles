@@ -34,8 +34,6 @@
 ;; Remember the previously used mini-buffer commands between Emacs session.
 (savehist-mode 1)
 
-(setq-default show-trailing-whitespace t)
-
 (setq save-interprogram-paste-before-kill t
       apropos-do-all t
       mouse-yank-at-point t
@@ -71,6 +69,7 @@
 (setq-default indent-tabs-mode nil)
 (add-hook 'prog-mode-hook (lambda ()
                             (hl-line-mode)
+                            (setq-local show-trailing-whitespace t)
                             (delete-trailing-whitespace)))
 
 ;; Scrolling.
@@ -362,8 +361,7 @@
   :config
   (general-def
     "C-c s" 'vterm)
-  (add-hook 'vterm-mode-hook (lambda () (setq fill-column -1
-                                              show-trailing-whitespace nil))))
+  (add-hook 'vterm-mode-hook (lambda () (setq fill-column -1))))
 
 
 ;; -----------------------------------------------------------------------------
