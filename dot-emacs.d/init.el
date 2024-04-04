@@ -441,7 +441,7 @@
   ;; Make the letters bigger on the screen.
   (custom-set-faces
    '(aw-leading-char-face
-     ((t (:foreground "red" :weight bold :height 3.0)))))
+     ((t (:foreground "red" :background unspecified :weight bold :height 3.0)))))
 
   (general-def
     "s-w" 'ace-window))
