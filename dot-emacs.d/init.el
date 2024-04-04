@@ -526,52 +526,112 @@
         completion-category-overrides '((file (styles partial-completion)))))
 
 ;;
-;; Cape
+;; Embark
 ;;
-(use-package cape
+(use-package embark
+  :ensure t
+
+  :bind
+  (("C-." . embark-act))         ;; pick some comfortable binding
+  ;; ("C-;" . embark-dwim)        ;; good alternative: M-.
+  ;; ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+
+  :init
+
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  ;; Show the Embark target at point via Eldoc. You may adjust the
+  ;; Eldoc strategy, if you want to see the documentation from
+  ;; multiple providers. Beware that using this can be a little
+  ;; jarring since the message shown in the minibuffer can be more
+  ;; than one line, causing the modeline to move up and down:
+
+  ;; (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+  ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+  )
+
+;; Consult users will also want the embark-consult package.
+(use-package embark-consult
+  :ensure t ; only need to install it, embark loads it after consult if found
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
+
+
+;;
+;; Corfu: Completion Overlay in Region FUnction
+;;
+(use-package corfu
   :ensure t
   :init
-  (add-to-list 'completion-at-point-functions #'cape-emoji))
-
-
-;;
-;; Company
-;;
-(use-package company
-  :ensure t
-  :hook (after-init . global-company-mode)
+  (global-corfu-mode)
+  :hook ((corfu-mode . corfu-popupinfo-mode)
+         (evil-normal-state-entry . corfu-quit))
   :config
-  (setq company-tooltip-align-annotations t)
-  (setq company-tooltip-limit 10)
-  (setq company-tooltip-offset-display 'lines)
-  (setq company-tooltip-minimum 6)
-  (setq company-tooltip-flip-when-above nil)
-  (setq company-format-margin-function 'company-vscode-light-icons-margin)
-  (setq company-text-icons-add-background t)
-  (setq company-dabbrev-downcase nil)
-  (setq company-dabbrev-other-buffers t)
-  (setq company-dabbrev-ignore-case 'keep-prefix)
-
-  (add-hook 'prog-mode-hook (lambda ()
-                              (setq company-backends '((company-capf company-dabbrev-code)))))
-
-  (general-def company-mode-map
-    "C-w" nil
-    "M-h" 'company-show-doc-buffer)
-
+  (setq corfu-cycle t
+        corfu-auto t
+        corfu-auto-prefix 2
+        corfu-preselect 'first)
   (general-def 'insert
-    "C-SPC" 'company-complete)
+    :prefix "C-SPC"
+    "SPC" 'completion-at-point))
 
-  (general-def '(insert normal)
-    :prefix "M-/"
-    "y" 'company-yasnippet
-    "f" 'company-files
-    "/" 'company-dabbrev))
-
-(use-package company-prescient
+(use-package nerd-icons-corfu
   :ensure t
-  :after company
-  :hook (company-mode . company-prescient-mode))
+  :after corfu
+  :config
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+
+(use-package cape
+  :ensure t
+  :config
+  (general-def 'insert
+    :prefix "C-SPC"
+    "/" 'cape-dabbrev
+    "d" 'cape-dict
+    ":" 'cape-emoji
+    "f" 'cape-file))
+
+;; ;;
+;; ;; Company
+;; ;;
+;; (use-package company
+;;   :ensure t
+;;   :hook (after-init . global-company-mode)
+;;   :config
+;;   (setq company-tooltip-align-annotations t)
+;;   (setq company-tooltip-limit 10)
+;;   (setq company-tooltip-offset-display 'lines)
+;;   (setq company-tooltip-minimum 6)
+;;   (setq company-tooltip-flip-when-above nil)
+;;   (setq company-format-margin-function 'company-vscode-light-icons-margin)
+;;   (setq company-text-icons-add-background t)
+;;   (setq company-dabbrev-downcase nil)
+;;   (setq company-dabbrev-other-buffers t)
+;;   (setq company-dabbrev-ignore-case 'keep-prefix)
+
+;;   (add-hook 'prog-mode-hook (lambda ()
+;;                               (setq company-backends '((company-capf)))))
+
+;;   (general-def company-mode-map
+;;     "C-w" nil
+;;     "M-h" 'company-show-doc-buffer)
+
+;;   (general-def 'insert
+;;     "C-SPC" 'company-complete)
+
+;;   (general-def '(insert normal emacs)
+;;     :prefix "M-/"
+;;     "<tab>" 'company-capf
+;;     "c"     'company-dabbrev-code
+;;     "y"     'company-yasnippet
+;;     "f"     'company-files
+;;     "/"     'company-dabbrev))
+
+;; (use-package company-prescient
+;;   :ensure t
+;;   :after company
+;;   :hook (company-mode . company-prescient-mode))
 
 
 ;; -----------------------------------------------------------------------------
@@ -606,7 +666,10 @@
              yas-deactivate-extra-mode
              yas-maybe-expand-abbrev-key-filter)
   :config
-  (advice-add #'yas-snippet-dirs :filter-return #'delete-dups))
+  (advice-add #'yas-snippet-dirs :filter-return #'delete-dups)
+  (general-def 'insert
+    :prefix "C-SPC"
+    "y" 'yas-insert-snippet))
 
 (use-package yasnippet-snippets
   :ensure t
