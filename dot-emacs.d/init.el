@@ -120,6 +120,11 @@
 (custom-set-faces '(font-lock-property-use-face ((t (:foreground "#5B8FCF")))))
 (custom-set-faces '(mode-line-active ((t (:background "#1F6BCB"
                                           :foreground "#C5C5C5")))))
+(custom-set-faces '(line-number ((t (:foreground "#717171"
+                                     :height 0.9
+                                     :slant unspecified)))))
+(custom-set-faces '(line-number-current-line((t (:inherit 'line-number
+                                                 :slant unspecified)))))
 
 (use-package nerd-icons
   :ensure t)
