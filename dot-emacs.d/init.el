@@ -95,7 +95,7 @@
 (set-face-attribute 'default nil
                     :family "JetBrains Mono"
                     :weight 'light
-                    :background "#1D1D1D"
+                    :background "#1E1E1E"
                     :height 170)
 
 ;; Increase all the fonts by an increment.
@@ -115,7 +115,7 @@
   (load-theme 'doom-one))
 
 (custom-set-faces '(font-lock-string-face ((t (:foreground "#BE896E")))))
-(custom-set-faces '(font-lock-comment-face ((t (:foreground "#5C7634")))))
+(custom-set-faces '(font-lock-comment-face ((t (:foreground "#6A9956")))))
 (custom-set-faces '(font-lock-doc-face ((t (:foreground "#688D4C")))))
 (custom-set-faces '(font-lock-property-use-face ((t (:foreground "#5B8FCF")))))
 (custom-set-faces '(mode-line-active ((t (:background "#1F6BCB"
