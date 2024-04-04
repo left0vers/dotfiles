@@ -857,10 +857,13 @@
 ;;
 ;; https://github.com/blahgeek/emacs-lsp-booster
 (if (executable-find "emacs-lsp-booster")
-    (use-package eglot-booster
-      :after eglot
-      :config (eglot-booster-mode))
-  (message "⚠️ Could not find `emacs-lsp-booster' executable, `eglot-booster' not loaded"))
+    (progn
+      (unless (require 'eglot-booster nil t)
+          (package-vc-install "https://github.com/jdtsmith/eglot-booster" :last-release))
+      (use-package eglot-booster
+        :after eglot
+        :config (eglot-booster-mode)))
+  (message "⚠️ Could not find `emacs-lsp-booster' executable: https://github.com/blahgeek/emacs-lsp-booster"))
 
 (use-package breadcrumb
   :ensure t
