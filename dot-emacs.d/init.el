@@ -838,6 +838,8 @@
         #'magit-display-buffer-fullframe-status-v1)
   (setq magit-bury-buffer-function #'magit-restore-window-configuration)
 
+  (add-hook 'git-commit-mode-hook (lambda () (setq fill-column 72)))
+
   (general-def 'normal
     "SPC g" '(:ignore t :which-key "[M]agit")
     "SPC g s" 'magit-status))
