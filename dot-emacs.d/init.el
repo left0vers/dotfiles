@@ -838,6 +838,25 @@
 
 (setq read-process-output-max (* 1024 1024))  ; 1mb --- lsp-mode recommendation
 
+(defvar persistent-doc-buffer-name "*persistent-doc-at-point*"
+  "The name of the buffer holding the persistent documentation.")
+
+(defun my/persistent-doc-at-point ()
+  "Document the thing at point and display it in a frame below the current one.
+
+The content of the frame will not be refreshed if the cursor moves. It will only
+be updated on a following call to this function."
+  (interactive)
+  (let ((symbol-documentation-buffer (eldoc-doc-buffer nil)))
+    (with-temp-buffer-window
+        persistent-doc-buffer-name
+        nil  ; The display of the buffer is controlled by `display-buffer-alist'
+        nil
+      (with-current-buffer symbol-documentation-buffer
+        (copy-to-buffer persistent-doc-buffer-name (point-min) (point-max))))
+
+    (with-current-buffer persistent-doc-buffer-name (help-mode))))
+
 (use-package eglot
   :ensure t
   :commands eglot
@@ -857,7 +876,8 @@
     "SPC l r" 'eglot-rename
     "SPC l a" 'eglot-code-actions
     "g t"     'eglot-find-typeDefinition
-    "g i"     'eglot-find-implementation)
+    "g i"     'eglot-find-implementation
+    "g h"     'my/persistent-doc-at-point)
 
   (add-to-list 'eglot-server-programs
                `(rust-ts-mode . ("rust-analyzer" :initializationOptions
