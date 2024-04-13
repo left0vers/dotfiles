@@ -110,9 +110,21 @@
 (use-package doom-themes
   :ensure t
   :config
-  ;; (load-theme 'doom-monokai-pro)
-  ;; (load-theme 'doom-dark+))
-  ;; (load-theme 'modus-operandi))
+  (load-theme 'doom-one))
+
+(use-package ef-themes
+  :ensure t)
+
+(defun my/switch-to-light-theme ()
+  "Disable the `doom-one' theme and load `ef-light'"
+  (interactive)
+  (disable-theme 'doom-one)
+  (load-theme 'ef-light))
+
+(defun my/switch-to-dark-theme ()
+  "Disable the `ef-light' theme and load `doom-one'"
+  (interactive)
+  (disable-theme 'ef-light)
   (load-theme 'doom-one))
 
 (custom-set-faces '(font-lock-string-face ((t (:foreground "#BE896E")))))
