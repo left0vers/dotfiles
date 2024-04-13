@@ -228,6 +228,15 @@
   (setq current-prefix-arg '(4))
   (call-interactively 'vterm))
 
+;; Because my dotfiles are under version control, if I want not to type "yes"
+;; every time I open my `init.el', I should set this variable to `t'.
+(setq vc-follow-symlinks t)
+
+(defun my/open-emacs-init ()
+  "Open .emacs/init.el configuration file."
+  (interactive)
+  (find-file (f-join user-emacs-directory "init.el")))
+
 (general-def
   "C-<next>"  'tab-next
   "C-<prior>" 'tab-previous
@@ -239,7 +248,8 @@
 
   "C-c e"     '(:ignore t :which-key "[e]macs")
   "C-c e l"   'list-packages
-  "C-c e p"   'list-processes)
+  "C-c e p"   'list-processes
+  "C-c e i"   'my/open-emacs-init)
 
 (general-def (special-mode-map help-mode-map)
   "n" 'next-line
@@ -292,6 +302,7 @@
     "SPC e" '(:ignore t :which-key "[e]macs")
     "SPC e l" 'list-packages
     "SPC e p" 'list-processes
+    "SPC e i" 'my/open-emacs-init
 
     ;; Buffer management.
     "SPC b k" 'kill-this-buffer
