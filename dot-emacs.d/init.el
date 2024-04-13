@@ -743,7 +743,41 @@
 ;; -----------------------------------------------------------------------------
 ;; PROGRAMMING
 
-(electric-pair-mode)
+(use-package rainbow-delimiters
+  :ensure t
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package smartparens
+  :ensure t
+  :hook (after-init . smartparens-global-mode)
+  :config
+  (require 'smartparens-config)
+  (setq sp-highlight-pair-overlay nil
+        sp-highlight-wrap-overlay nil
+        sp-highlight-wrap-tag-overlay nil
+        sp-show-pair-from-inside t
+        sp-cancel-autoskip-on-backward-movement nil
+        ;; By default, if a pair is inserted, the `sp-pair-overlay-keymap' is
+        ;; entered which makes `C-g' require two presses in order to quit
+        ;; whatever we are doing.
+        sp-pair-overlay-keymap (make-sparse-keymap)
+        sp-max-prefix-length 25
+        sp-max-pair-length 4)
+
+  (defun smartparens-pair-newline-and-indent (id action context)
+    (save-excursion
+      (newline)
+      (indent-according-to-mode))
+    (indent-according-to-mode))
+
+  (sp-pair "{" nil :post-handlers
+           '(:add (smartparens-pair-newline-and-indent "RET")))
+  (sp-pair "[" nil :post-handlers
+           '(:add (smartparens-pair-newline-and-indent "RET")))
+
+  (sp-local-pair '(minibuffer-mode minibuffer-inactive-mode) "'" nil :actions nil)
+  (sp-local-pair '(minibuffer-mode minibuffer-inactive-mode) "`" nil :actions nil)
+  (sp-local-pair 'rust-ts-mode "r#\"" "\"#" :wrap "C-#"))
 
 (use-package hl-todo
   :ensure t
