@@ -549,6 +549,13 @@
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
 
+
+;; -----------------------------------------------------------------------------
+;; EDITING
+
+(use-package wgrep
+  :ensure t)
+
 ;;
 ;; Embark
 ;;
