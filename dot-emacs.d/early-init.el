@@ -18,7 +18,7 @@
 
 ;; Speed up startup.
 (setq auto-mode-case-fold nil
-      gc-cons-threshold 10000000
+      gc-cons-threshold (* 1024 1024 2)
       ;; @left0vers: this was the previous setting.
       ;; byte-compile-warnings '(cl-functions)
       byte-compile-warnings '(not obsolete)
