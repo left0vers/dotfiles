@@ -616,47 +616,6 @@
     ":" 'cape-emoji
     "f" 'cape-file))
 
-;; ;;
-;; ;; Company
-;; ;;
-;; (use-package company
-;;   :ensure t
-;;   :hook (after-init . global-company-mode)
-;;   :config
-;;   (setq company-tooltip-align-annotations t)
-;;   (setq company-tooltip-limit 10)
-;;   (setq company-tooltip-offset-display 'lines)
-;;   (setq company-tooltip-minimum 6)
-;;   (setq company-tooltip-flip-when-above nil)
-;;   (setq company-format-margin-function 'company-vscode-light-icons-margin)
-;;   (setq company-text-icons-add-background t)
-;;   (setq company-dabbrev-downcase nil)
-;;   (setq company-dabbrev-other-buffers t)
-;;   (setq company-dabbrev-ignore-case 'keep-prefix)
-
-;;   (add-hook 'prog-mode-hook (lambda ()
-;;                               (setq company-backends '((company-capf)))))
-
-;;   (general-def company-mode-map
-;;     "C-w" nil
-;;     "M-h" 'company-show-doc-buffer)
-
-;;   (general-def 'insert
-;;     "C-SPC" 'company-complete)
-
-;;   (general-def '(insert normal emacs)
-;;     :prefix "M-/"
-;;     "<tab>" 'company-capf
-;;     "c"     'company-dabbrev-code
-;;     "y"     'company-yasnippet
-;;     "f"     'company-files
-;;     "/"     'company-dabbrev))
-
-;; (use-package company-prescient
-;;   :ensure t
-;;   :after company
-;;   :hook (company-mode . company-prescient-mode))
-
 
 ;; -----------------------------------------------------------------------------
 ;; SPELL-CHECKER
