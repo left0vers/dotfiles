@@ -42,6 +42,7 @@
       load-prefer-newer t
       backup-by-copying t
       frame-inhibit-implied-resize t
+      use-short-answers t
       ediff-window-setup-function 'ediff-setup-windows-plain)
 
 (setq backup-directory-alist `(("." . ,(concat user-emacs-directory
