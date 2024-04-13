@@ -916,9 +916,29 @@ be updated on a following call to this function."
 
 (use-package breadcrumb
   :ensure t
-  :hook ((rust-ts-mode . breadcrumb-local-mode))
+  :hook ((rust-ts-mode . breadcrumb-local-mode)
+         (org-mode     . breadcrumb-local-mode))
   :config
-  (custom-set-faces '(breadcrumb-face ((t :foreground "#72809a")))))
+  (custom-set-faces '(breadcrumb-face ((t :foreground "#72809a"))))
+
+  ;; Make Org heading style the same.
+  ;; https://github.com/joaotavora/breadcrumb/issues/35
+  (defun breadcrumb-org-crumbs ()
+    "Get the chain from the top level heading down to current heading."
+    (org-format-outline-path (org-get-outline-path t)
+                             (1- (frame-width))
+                             nil
+                             " > "))
+  (defun breadcrumb--header-line ()
+    "Helper for `breadcrumb-headerline-mode'."
+    (let* ((imenu-crumbs (if (eq major-mode 'org-mode)
+                             'breadcrumb-org-crumbs
+                           'breadcrumb-imenu-crumbs))
+           (x (cl-remove-if
+               #'seq-empty-p (mapcar #'funcall
+                                     `(breadcrumb-project-crumbs ,imenu-crumbs)))))
+      (mapconcat #'identity x (propertize " : " 'face 'bc-face)))))
+
 
 ;; -----------------------------------------------------------------------------
 ;; RUST
