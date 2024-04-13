@@ -164,7 +164,7 @@
 
 ;; -----------------------------------------------------------------------------
 ;; WINDOW MANAGEMENT
-(defun focus-window (window)
+(defun my/focus-window (window)
   "Focus the provided WINDOW."
   (select-window window))
 
@@ -177,7 +177,7 @@
          (side          . bottom)
          (window-height . 0.3)
          (window-parameters . ((mode-line-format . none)))
-         (body-function . focus-window))
+         (body-function . my/focus-window))
 
         ((or . ("\\*eldoc\\*"
                 "\\*persistent-doc-at-point*"))
@@ -185,7 +185,7 @@
          (dedicated     . t)
          (side          . bottom)
          (window-height . 0.3)
-         (body-function . focus-window))
+         (body-function . my/focus-window))
 
         ((derived-mode . help-mode)
          (display-buffer-reuse-mode-window display-buffer-at-bottom)
