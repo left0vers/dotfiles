@@ -1,4 +1,4 @@
 *:aspell,hunspell,nuspell
-en_US:aspell,hunspell,nuspell
+en:aspell,hunspell,nuspell
 en_GB:hunspell,nuspell,aspell
 fr:hunspell,nuspell,aspell
